@@ -1,6 +1,6 @@
 {
   "name": "Tab Carousel",
-  "version": "0.1.beta.1",
+  "version": "0.1.0",
   "description": "Cycle through your Chrome tabs on an interval.  Great for monitoring information on a TV that can show Chrome.",
 
   "background_page": "background.html",

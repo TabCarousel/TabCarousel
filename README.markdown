@@ -10,7 +10,11 @@ Author: Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
 Installing
 ----------
 
-Carousel is currently in beta, so if you'd like to try it out, you'll have to install the unpacked extension:
+Carousel is early in development.  I consider it to be beta software, although Chrome doesn't allow versions to be marked as such.
+
+To install, download the .crx file from the downloads on GitHub.
+
+To use the code from GitHub, you'll have to install the unpacked extension:
 
 * Download the zip, tar, or git clone this repo
 * Extract the zip/tar archive, if necessary
