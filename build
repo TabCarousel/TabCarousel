@@ -2,14 +2,16 @@
 require 'fileutils'
 require 'yaml'
 
-manifest = YAML.parse(File.read('manifest.json'))
+manifest = YAML.parse(File.read('ext/manifest.json'))
 name = manifest['name'].value
 version = manifest['version'].value
 crx_name = "#{name}-#{version}.crx"
+
+FileUtils.mkdir_p('pkg')
 product = File.join('pkg', crx_name)
 
-`"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --pack-extension=. --pack-extension-key="$HOME/.chrome/TabCarousel.pem"`
-FileUtils.move('..crx', product)
+`"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --pack-extension=ext --pack-extension-key="$HOME/.chrome/#{name}.pem"`
+FileUtils.move('ext.crx', product)
 puts "Built #{product.inspect}"
 
 updates = File.read('updates.xml')
