@@ -20,6 +20,8 @@ To install the code from GitHub, you'll have to install the unpacked extension:
 
 If it installed correctly, you'll see a new toolbar button.
 
+Autoupdating is controlled by updates.xml when uploaded to the location that manifest.json checks.  See also: http://code.google.com/chrome/extensions/autoupdate.html
+
 This was originally written on Chrome 12.0.742.100 on Mac OS X 10.6.4.
 
 Guidelines

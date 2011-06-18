@@ -3,7 +3,9 @@
   "version": "0.1.2",
 
   "description": "Cycle through your Chrome tabs automatically.  Great for monitoring information on a TV with a computer attached.",
-   "homepage_url": "http://github.com/benjaminoakes/TabCarousel",
+  "homepage_url": "http://github.com/benjaminoakes/TabCarousel",
+  "update_url": "http://github.com/benjaminoakes/TabCarousel/downloads/updates.xml",
+
   "icons": {
     "48": "images/icon_48.png"
   },
