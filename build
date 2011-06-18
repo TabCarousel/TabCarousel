@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+require 'yaml'
+
+manifest = YAML.parse(File.read('manifest.json'))
+name = manifest['name'].value
+version = manifest['version'].value
+crx_name = "#{name}-#{version}.crx"
+product = File.join('pkg', crx_name)
+
+`"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --pack-extension=. --pack-extension-key="$HOME/.chrome/TabCarousel.pem"`
+FileUtils.move('..crx', product)
+puts "Built #{product.inspect}"
+
+updates = File.read('updates.xml')
+updates.gsub!(/\d\.\d\.\d/, version)
+File.open('updates.xml', 'w') { |f| f.puts updates }
+puts 'Updated "updates.xml"'
