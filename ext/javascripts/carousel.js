@@ -63,9 +63,9 @@ var carousel = (function () {
    * @function
    */
   ns.stop = function () {
-    alert('Carousel stopped.');
     clearTimeout(ns.lastTimeout);
     ns.lastTimeout = undefined;
+    alert('Carousel stopped.');
   };
 
   /**
