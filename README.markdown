@@ -3,7 +3,7 @@ Tab Carousel
 
 Tab Carousel is a Chrome extension that cycles through your Chrome tabs on an interval.
 
-Click the toolbar button and Chrome will start rotating through your tabs every 10 seconds (by default).
+Click the toolbar button and Chrome will start rotating through your tabs every 15 seconds (by default).
 
 Author: Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
 

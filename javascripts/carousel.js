@@ -12,7 +12,7 @@ var carousel = (function () {
    * Default interval between tabs, in ms.
    * @constant
    */
-  ns.defaultWaitMs = 10000;
+  ns.defaultWaitMs = 15000;
 
   /** Is the carousel in motion? */
   ns.running = false;
