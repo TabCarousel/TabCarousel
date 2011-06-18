@@ -5,6 +5,7 @@ Change Log
 -----
 
 * Force a refresh of tabs approx every 5 minutes.
+* More sizes of the same icon, which now shows up during installation, etc.
 
 0.2.0
 -----
