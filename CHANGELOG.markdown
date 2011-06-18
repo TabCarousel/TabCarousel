@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+0.3.0
+-----
+
+* Force a refresh of tabs approx every 5 minutes.
+
 0.2.0
 -----
 

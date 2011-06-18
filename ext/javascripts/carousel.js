@@ -5,20 +5,36 @@
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
  */
 var carousel = (function () {
-  /** @namespace */
+  /** Module @namespace */
   var ns = {};
 
-  /**
-   * Default interval between tabs, in ms.
-   * @constant
-   */
-  ns.defaultWaitMs = 15000;
+  /** @constant */
+  ns.defaults = {
+    /** Interval between tabs, in ms. */
+    selectWait_ms: 15 * 1000,
+    /** Interval between reloading a tab, in ms.  Let's not kill other people's servers with automated requests. */
+    reloadWait_ms: 5 * 60 * 1000
+  };
 
   /**
    * Keep track of the last time a tab was refreshed so we can wait at least 5 minutes betweent refreshes.
    * TODO
    */
-  ns.lastReload = {};
+  ns.lastReloads_ms = {};
+
+  /**
+   * Reload the given tab, if it has been more than ns.reloadWait_ms ago since it's last been reloaded.
+   * @function
+   */
+  ns.reload = function (tabId) {
+    var now_ms = (new Date()).getTime(),
+      lastReload_ms = ns.lastReloads_ms[tabId];
+    
+    if (!lastReload_ms || (now_ms - lastReload_ms >= ns.defaults.reloadWait_ms)) {
+      chrome.tabs.executeScript(tabId, {code: 'document.location.reload()', allFrames: true});
+      ns.lastReloads_ms[tabId] = now_ms;
+    }
+  };
 
   /**
    * Select the given tab count, mod the number of tabs currently open.
@@ -28,9 +44,10 @@ var carousel = (function () {
    */
   ns.select = function (count) {
     chrome.tabs.getAllInWindow(undefined, function (tabs) {
-      var tab = tabs[count % tabs.length], nextTab = tabs[(count + 1) % tabs.length];
+      var tab = tabs[count % tabs.length],
+        nextTab = tabs[(count + 1) % tabs.length];
       chrome.tabs.update(tab.id, {selected: true});
-      chrome.tabs.executeScript(nextTab.id, {code: 'document.location.reload()', allFrames: true});
+      ns.reload(nextTab.id);
     });
   };
 
@@ -76,10 +93,10 @@ var carousel = (function () {
     var entry, ms, parsed;
 
     if (!ns.running()) {
-      entry = prompt('Starting carousel.  Click toolbar button again to stop.\n\nPlease enter wait interval in ms, or leave empty to use the default (' + ns.defaultWaitMs + ' ms)');
+      entry = prompt('Starting carousel.  Click toolbar button again to stop.\n\nPlease enter wait interval in ms, or leave empty to use the default (' + ns.defaults.selectWait_ms + ' ms)');
 
       parsed = parseInt(entry, 10);
-      ms = parsed > 0 ? parsed : ns.defaultWaitMs;
+      ms = parsed > 0 ? parsed : ns.defaults.selectWait_ms;
 
       ns.start(ms);
     } else {
