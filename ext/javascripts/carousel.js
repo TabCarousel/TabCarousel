@@ -15,13 +15,22 @@ var carousel = (function () {
   ns.defaultWaitMs = 15000;
 
   /**
+   * Keep track of the last time a tab was refreshed so we can wait at least 5 minutes betweent refreshes.
+   * TODO
+   */
+  ns.lastReload = {};
+
+  /**
    * Select the given tab count, mod the number of tabs currently open.
    * @function
+   * @seealso http://code.google.com/chrome/extensions/tabs.html
+   * @seealso http://code.google.com/chrome/extensions/content_scripts.html#pi
    */
   ns.select = function (count) {
     chrome.tabs.getAllInWindow(undefined, function (tabs) {
-      var tab = tabs[count % tabs.length];
+      var tab = tabs[count % tabs.length], nextTab = tabs[(count + 1) % tabs.length];
       chrome.tabs.update(tab.id, {selected: true});
+      chrome.tabs.executeScript(nextTab.id, {code: 'document.location.reload()', allFrames: true});
     });
   };
 

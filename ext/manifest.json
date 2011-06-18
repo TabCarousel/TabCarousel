@@ -1,6 +1,6 @@
 {
   "name": "TabCarousel",
-  "version": "0.2.0",
+  "version": "0.3.0",
 
   "description": "Cycle through your Chrome tabs automatically.  Great for monitoring information on a TV with a computer attached.",
   "homepage_url": "http://github.com/benjaminoakes/TabCarousel",
@@ -16,6 +16,8 @@
   },
 
   "permissions": [
-    "tabs"
+    "tabs",
+    "http://*/*",
+    "https://*/*"
   ]
 }
