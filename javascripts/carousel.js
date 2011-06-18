@@ -14,9 +14,6 @@ var carousel = (function () {
    */
   ns.defaultWaitMs = 15000;
 
-  /** Is the carousel in motion? */
-  ns.running = false;
-
   /**
    * Select the given tab count, mod the number of tabs currently open.
    * @function
@@ -30,26 +27,33 @@ var carousel = (function () {
 
   /**
    * Put the carousel into motion.
-   * 
-   * Stopped by setting ns.running to false.
-   * 
    * @function
    */
   ns.start = function (ms) {
     var continuation, count = 0;
-    ns.running = true;
 
     continuation = function () {
       ns.select(count);
       count += 1;
-      if (ns.running) {
-        setTimeout(continuation, ms);
-      } else {
-        alert('Carousel stopped.');
-      }
+      ns.lastTimeout = setTimeout(continuation, ms);
     };
 
     continuation();
+  };
+
+  /** Is the carousel in motion? */
+  ns.running = function () {
+    return !!ns.lastTimeout;
+  };
+
+  /**
+   * Stop the carousel.
+   * @function
+   */
+  ns.stop = function () {
+    alert('Carousel stopped.');
+    clearTimeout(ns.lastTimeout);
+    ns.lastTimeout = undefined;
   };
 
   /**
@@ -59,7 +63,7 @@ var carousel = (function () {
   ns.click = function () {
     var entry, ms, parsed;
 
-    if (!ns.running) {
+    if (!ns.running()) {
       entry = prompt('Starting carousel.  Click toolbar button again to stop.\n\nPlease enter wait interval in ms, or leave empty to use the default (' + ns.defaultWaitMs + ' ms)');
 
       parsed = parseInt(entry, 10);
@@ -67,7 +71,7 @@ var carousel = (function () {
 
       ns.start(ms);
     } else {
-      ns.running = false;
+      ns.stop();
     }
   };
 
