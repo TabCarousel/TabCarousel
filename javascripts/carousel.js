@@ -41,7 +41,10 @@ var carousel = (function () {
     continuation();
   };
 
-  /** Is the carousel in motion? */
+  /**
+   * Is the carousel in motion?
+   * @function
+   */
   ns.running = function () {
     return !!ns.lastTimeout;
   };
