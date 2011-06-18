@@ -10,6 +10,18 @@ Notes
 
 * This is a Chrome extension.  This is a tutorial if you're unfamiliar:  http://code.google.com/chrome/extensions/getstarted.html
 
+To install the code from GitHub, you'll have to install the unpacked extension:
+
+* Download the zip, tar, or git clone this repo
+* Extract the zip/tar archive, if necessary
+* Open chrome://extensions in your browser
+* Hit the "+" button on Developer Mode (on the right side of the page)
+* Choose "Load unpacked extension..." and browse for the extracted files.
+
+If it installed correctly, you'll see a new toolbar button.
+
+This was originally written on Chrome 12.0.742.100 on Mac OS X 10.6.4.
+
 Guidelines
 ----------
 
