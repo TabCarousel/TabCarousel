@@ -11,23 +11,36 @@ var carousel = (function () {
   /** @constant */
   ns.defaults = {
     /** Interval between tabs, in ms. */
-    selectWait_ms: 15 * 1000,
+    flipWait_ms: 15 * 1000,
     /** Interval between reloading a tab, in ms.  Let's not kill other people's servers with automated requests. */
     reloadWait_ms: 5 * 60 * 1000
   };
 
+  ns.tutorialText = [
+    'First-Use Tutorial',
+    '',
+    'TabCarousel is simple:  open tabs you want to monitor thoughout the day, then click the toolbar icon.  To stop, click the icon again.',
+    '',
+    'By default, TabCarousel will flip through your tabs every ' + String(ns.defaults.flipWait_ms / 1000) + ' s, reloading them every ' + String(ns.defaults.reloadWait_ms / 1000 / 60) + " min.  It's great on a unused display or TV.  Put Chrome in full-screen mode (F11, or cmd-shift-f on the Mac) and let it go.",
+    '',
+    'If you want to change how often TabCarousel flips through your tabs, right click on the toolbar icon and choose "Options".'
+  ].join('\n');
+
   /**
    * Keep track of the last time a tab was refreshed so we can wait at least 5 minutes betweent refreshes.
-   * TODO
    */
   ns.lastReloads_ms = {};
+
+  ns.timestamp = function () {
+    return (new Date()).getTime();
+  };
 
   /**
    * Reload the given tab, if it has been more than ns.reloadWait_ms ago since it's last been reloaded.
    * @function
    */
   ns.reload = function (tabId) {
-    var now_ms = (new Date()).getTime(),
+    var now_ms = ns.timestamp(),
       lastReload_ms = ns.lastReloads_ms[tabId];
     
     if (!lastReload_ms || (now_ms - lastReload_ms >= ns.defaults.reloadWait_ms)) {
@@ -58,6 +71,7 @@ var carousel = (function () {
   ns.start = function (ms) {
     var continuation, count = 0;
     chrome.browserAction.setIcon({path: 'images/icon_32_exp_1.75_stop_emblem.png'});
+    chrome.browserAction.setTitle({title: 'Stop Carousel'});
 
     continuation = function () {
       ns.select(count);
@@ -84,6 +98,28 @@ var carousel = (function () {
     clearTimeout(ns.lastTimeout);
     ns.lastTimeout = undefined;
     chrome.browserAction.setIcon({path: 'images/icon_32.png'});
+    chrome.browserAction.setTitle({title: 'Start Carousel'});
+  };
+
+  ns.firstRun = function (value) {
+    if (value) {
+      localStorage['firstRun'] = value;
+    } else {
+      return !localStorage['firstRun'];
+    }
+  };
+
+  ns.flipWait_ms = function (ms) {
+    if (ms) {
+      localStorage['flipWait_ms'] = ms;
+    } else {
+      return localStorage['flipWait_ms'] || ns.defaults.flipWait_ms;
+    }
+  };
+
+  ns.tutorial = function () {
+    alert(ns.tutorialText);
+    ns.firstRun(ns.timestamp());
   };
 
   /**
@@ -93,15 +129,14 @@ var carousel = (function () {
   ns.click = function () {
     var entry, ms, parsed;
 
-    if (!ns.running()) {
-      entry = prompt('Starting carousel.  Click toolbar button again to stop.\n\nPlease enter wait interval in ms, or leave empty to use the default (' + ns.defaults.selectWait_ms + ' ms)');
-
-      parsed = parseInt(entry, 10);
-      ms = parsed > 0 ? parsed : ns.defaults.selectWait_ms;
-
-      ns.start(ms);
+    if (ns.firstRun()) {
+      ns.tutorial();
     } else {
-      ns.stop();
+      if (!ns.running()) {
+        ns.start(ns.flipWait_ms());
+      } else {
+        ns.stop();
+      }
     }
   };
 
@@ -111,6 +146,30 @@ var carousel = (function () {
    */
   ns.load = function () {
     chrome.browserAction.onClicked.addListener(ns.click);
+    chrome.browserAction.setTitle({title: 'Start Carousel'});
+  };
+
+  ns.OptionsController = function (form) {
+    this.form = form;
+    this.form.flipWait_ms.value = ns.flipWait_ms();
+    this.form.onsubmit = this.onsubmit;
+  };
+
+  ns.OptionsController.prototype = {
+    onsubmit: function () {
+      var status = document.getElementById('status');
+      status.innerHTML = '';
+
+      ns.flipWait_ms(this.flipWait_ms.value);
+
+      // So the user sees a blink when saving values multiple times without leaving the page.
+      setTimeout(function () {
+        status.innerHTML = 'Saved';
+        status.style.color = 'green';
+      }, 100);
+
+      return false;
+    }
   };
 
   return ns;

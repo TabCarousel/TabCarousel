@@ -1,4 +1,4 @@
 TODOs
 =====
 
-* Options page so you don't always have to set the wait time.
+* Make it so the carousel only applies to one window.

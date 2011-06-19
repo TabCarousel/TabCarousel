@@ -5,6 +5,8 @@ Change Log
 -----
 
 * Change Carousel icon once started to show it's in motion, change back when stopped.  There's also a stop sign overlay from Tango.
+* Added an options page so you don't always have to set the wait time.
+* Added first-use tutorial
 
 0.3.0
 -----
