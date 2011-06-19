@@ -57,6 +57,7 @@ var carousel = (function () {
    */
   ns.start = function (ms) {
     var continuation, count = 0;
+    chrome.browserAction.setIcon({path: 'images/icon_32_exp_1.75_stop_emblem.png'});
 
     continuation = function () {
       ns.select(count);
@@ -82,7 +83,7 @@ var carousel = (function () {
   ns.stop = function () {
     clearTimeout(ns.lastTimeout);
     ns.lastTimeout = undefined;
-    alert('Carousel stopped.');
+    chrome.browserAction.setIcon({path: 'images/icon_32.png'});
   };
 
   /**

@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+0.4.0
+-----
+
+* Change Carousel icon once started to show it's in motion, change back when stopped.  There's also a stop sign overlay from Tango.
+
 0.3.0
 -----
 
