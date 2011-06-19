@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+0.5.0
+-----
+
+* First release on the Chrome Web Store
+
 0.4.0
 -----
 
