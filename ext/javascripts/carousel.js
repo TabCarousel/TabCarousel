@@ -129,14 +129,12 @@ var carousel = (function () {
   ns.click = function () {
     var entry, ms, parsed;
 
-    if (ns.firstRun()) {
-      ns.tutorial();
+    if (ns.firstRun()) { ns.tutorial(); }
+
+    if (!ns.running()) {
+      ns.start(ns.flipWait_ms());
     } else {
-      if (!ns.running()) {
-        ns.start(ns.flipWait_ms());
-      } else {
-        ns.stop();
-      }
+      ns.stop();
     }
   };
 
