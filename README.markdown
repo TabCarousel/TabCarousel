@@ -8,7 +8,7 @@ Author: Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
 Installing
 ----------
 
-Installation is simple:  download the .crx file from the downloads on GitHub.  Chrome will take it from there.
+Installation is simple:  visit the [Chrome Web Store page](http://chrome.google.com/webstore/detail/ddldimidiliclngjipajmjjiakhbcohn) and click "Install".  Chrome will take it from there.
 
 Tutorial
 --------
@@ -22,6 +22,6 @@ If you want to change how often TabCarousel flips through your tabs, right click
 Example Uses
 ------------
 
-On a HDTV that has a computer attached, open the NewRelic overivew (and Background Tasks, etc.) for each app you'd like to monitor.  Set NewRelic to kiosk mode for each page, then hit the "Tab Carousel" toolbar button.
+On a HDTV that has a computer attached, open the NewRelic overview (and Background Tasks, etc.) for each app you'd like to monitor.  Set NewRelic to kiosk mode for each page, then hit the "Tab Carousel" toolbar button.
 
 The TabCarousel wiki has more.
