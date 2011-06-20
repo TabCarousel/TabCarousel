@@ -19,7 +19,7 @@ var carousel = (function () {
   ns.tutorialText = [
     'First-Use Tutorial',
     '',
-    'TabCarousel is simple:  open tabs you want to monitor thoughout the day, then click the toolbar icon.  To stop, click the icon again.',
+    'TabCarousel is simple:  open tabs you want to monitor throughout the day, then click the toolbar icon.  To stop, click the icon again.',
     '',
     'By default, TabCarousel will flip through your tabs every ' + String(ns.defaults.flipWait_ms / 1000) + ' s, reloading them every ' + String(ns.defaults.reloadWait_ms / 1000 / 60) + " min.  It's great on a unused display or TV.  Put Chrome in full-screen mode (F11, or cmd-shift-f on the Mac) and let it go.",
     '',

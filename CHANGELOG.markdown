@@ -5,6 +5,7 @@ Change Log
 -----
 
 * First release on the Chrome Web Store
+* Minor typo fixes
 
 0.4.0
 -----
