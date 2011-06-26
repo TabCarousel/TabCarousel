@@ -19,5 +19,17 @@ describe("localStorage accessors", function() {
       ns.automaticStart('some string');
       expect(ns.automaticStart()).toBeTruthy();
     });
+
+    it('should give give false if set to ""', function () {
+      ns.automaticStart('');
+      expect(ns.automaticStart()).toBeFalsy();
+    });
+
+    it('should allow setting to true then false', function () {
+      ns.automaticStart(true);
+      expect(ns.automaticStart()).toBeTruthy();
+      ns.automaticStart(false);
+      expect(ns.automaticStart()).toBeFalsy();
+    });
   });
 });

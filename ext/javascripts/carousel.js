@@ -75,6 +75,9 @@ var carousel = (function () {
    */
   ns.start = function (ms) {
     var continuation, count = 0;
+
+    if (!ms) { ms = ns.flipWait_ms(); }
+
     chrome.browserAction.setIcon({path: 'images/icon_32_exp_1.75_stop_emblem.png'});
     chrome.browserAction.setTitle({title: 'Stop Carousel'});
 
@@ -135,10 +138,12 @@ var carousel = (function () {
    * @function
    */
   ns.automaticStart = function (value) {
-    if (value) {
+    if (1 === arguments.length) {
       localStorage['automaticStart'] = !!value;
     } else {
-      return !!localStorage['automaticStart'];
+      if (localStorage['automaticStart']) {
+        return JSON.parse(localStorage['automaticStart']);
+      }
     }
   };
 
@@ -161,7 +166,7 @@ var carousel = (function () {
     if (ns.firstRun()) { ns.tutorial(); }
 
     if (!ns.running()) {
-      ns.start(ns.flipWait_ms());
+      ns.start();
     } else {
       ns.stop();
     }
@@ -175,9 +180,7 @@ var carousel = (function () {
     chrome.browserAction.onClicked.addListener(ns.click);
     chrome.browserAction.setTitle({title: 'Start Carousel'});
 
-    // if (ns.automaticStart()) {
-    //   ns.start(ns.flipWait_ms());
-    // }
+    if (ns.automaticStart()) { ns.start(); }
   };
 
   /**
@@ -186,6 +189,7 @@ var carousel = (function () {
   ns.OptionsController = function (form) {
     this.form = form;
     this.form.flipWait_ms.value = ns.flipWait_ms();
+    this.form.automaticStart.checked = ns.automaticStart();
     this.form.onsubmit = this.onsubmit;
   };
 
@@ -199,6 +203,7 @@ var carousel = (function () {
       status.innerHTML = '';
 
       ns.flipWait_ms(this.flipWait_ms.value);
+      ns.automaticStart(this.automaticStart.value);
 
       // So the user sees a blink when saving values multiple times without leaving the page.
       setTimeout(function () {

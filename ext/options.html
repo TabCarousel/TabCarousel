@@ -6,15 +6,27 @@
 body {
   font-family: "Trebuchet MS", sans-serif;
 }
+
+th {
+  font-weight: normal;
+  text-align: right;
+}
 </style>
 </head>
 <body>
 <h1>TabCarousel Options</h1>
 
 <form id="options">
-<label for="flipWait_ms">Flip Wait (ms):</label>
-<input atuofocus id="flipWait_ms" name="flipWait_ms" type="number" min="1000" step="1000" />
-<br />
+<table>
+<tr>
+<th><label for="flipWait_ms">Flip Wait (ms):</label></th>
+<td><input atuofocus id="flipWait_ms" name="flipWait_ms" type="number" min="1000" step="1000" /></td>
+</tr>
+<tr>
+<th><label for="automaticStart">Start automatically:</label></th>
+<td><input id="automaticStart" name="automaticStart" type="checkbox" /></td>
+</tr>
+</table>
 <br />
 <input type="submit" value="Save" />
 <span id="status"></span>
