@@ -16,6 +16,7 @@ var carousel = (function () {
     reloadWait_ms: 5 * 60 * 1000
   };
 
+  /** English-language tutorial text for first run. */
   ns.tutorialText = [
     'First-Use Tutorial',
     '',
@@ -31,6 +32,10 @@ var carousel = (function () {
    */
   ns.lastReloads_ms = {};
 
+  /**
+   * Unix-style timestamp
+   * @function
+   */
   ns.timestamp = function () {
     return (new Date()).getTime();
   };
@@ -101,6 +106,10 @@ var carousel = (function () {
     chrome.browserAction.setTitle({title: 'Start Carousel'});
   };
 
+  /**
+   * Getter/setter for first run timestamp.
+   * @function
+   */
   ns.firstRun = function (value) {
     if (value) {
       localStorage['firstRun'] = value;
@@ -109,6 +118,10 @@ var carousel = (function () {
     }
   };
 
+  /**
+   * Getter/setter for user set flip wait timing or the default.
+   * @function
+   */
   ns.flipWait_ms = function (ms) {
     if (ms) {
       localStorage['flipWait_ms'] = ms;
@@ -117,6 +130,10 @@ var carousel = (function () {
     }
   };
 
+  /**
+   * Display the first-run tutorial.
+   * @function
+   */
   ns.tutorial = function () {
     alert(ns.tutorialText);
     ns.firstRun(ns.timestamp());
@@ -147,6 +164,9 @@ var carousel = (function () {
     chrome.browserAction.setTitle({title: 'Start Carousel'});
   };
 
+  /**
+   * @constructor
+   */
   ns.OptionsController = function (form) {
     this.form = form;
     this.form.flipWait_ms.value = ns.flipWait_ms();
@@ -154,6 +174,10 @@ var carousel = (function () {
   };
 
   ns.OptionsController.prototype = {
+    /**
+     * Save callback for Options form.  Keep in mind "this" is the form, not the controller.
+     * @function
+     */
     onsubmit: function () {
       var status = document.getElementById('status');
       status.innerHTML = '';
