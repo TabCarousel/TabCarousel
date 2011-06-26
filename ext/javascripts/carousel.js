@@ -107,7 +107,7 @@ var carousel = (function () {
   };
 
   /**
-   * Getter/setter for first run timestamp.
+   * Accessor for first run timestamp.
    * @function
    */
   ns.firstRun = function (value) {
@@ -119,7 +119,7 @@ var carousel = (function () {
   };
 
   /**
-   * Getter/setter for user set flip wait timing or the default.
+   * Accessor for user set flip wait timing or the default.
    * @function
    */
   ns.flipWait_ms = function (ms) {
@@ -127,6 +127,18 @@ var carousel = (function () {
       localStorage['flipWait_ms'] = ms;
     } else {
       return localStorage['flipWait_ms'] || ns.defaults.flipWait_ms;
+    }
+  };
+
+  /**
+   * Accessor for user set automatic start preference.
+   * @function
+   */
+  ns.automaticStart = function (value) {
+    if (value) {
+      localStorage['automaticStart'] = !!value;
+    } else {
+      return !!localStorage['automaticStart'];
     }
   };
 
@@ -162,6 +174,10 @@ var carousel = (function () {
   ns.load = function () {
     chrome.browserAction.onClicked.addListener(ns.click);
     chrome.browserAction.setTitle({title: 'Start Carousel'});
+
+    // if (ns.automaticStart()) {
+    //   ns.start(ns.flipWait_ms());
+    // }
   };
 
   /**
