@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+0.5.2
+-----
+
+* Added an option to start Carousel automatically, by request from a user
+* Tabs that have previously failed to reload now reload correctly
+* Carousel now only flips through tabs in the window in which it was started
+
 0.5.0
 -----
 
