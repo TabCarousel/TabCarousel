@@ -62,8 +62,8 @@ var carousel = (function () {
    * @seealso http://code.google.com/chrome/extensions/tabs.html
    * @seealso http://code.google.com/chrome/extensions/content_scripts.html#pi
    */
-  ns.select = function (count) {
-    chrome.tabs.getAllInWindow(undefined, function (tabs) {
+  ns.select = function (windowId, count) {
+    chrome.tabs.getAllInWindow(windowId, function (tabs) {
       var tab = tabs[count % tabs.length],
         nextTab = tabs[(count + 1) % tabs.length];
       chrome.tabs.update(tab.id, {selected: true});
@@ -76,15 +76,18 @@ var carousel = (function () {
    * @function
    */
   ns.start = function (ms) {
-    var continuation, count = 0;
+    var continuation,
+      count = 0,
+      windowId; // window in which Carousel was started
 
     if (!ms) { ms = ns.flipWait_ms(); }
+    chrome.windows.getCurrent(function (w) { windowId = w.id; });
 
     chrome.browserAction.setIcon({path: 'images/icon_32_exp_1.75_stop_emblem.png'});
     chrome.browserAction.setTitle({title: 'Stop Carousel'});
 
     continuation = function () {
-      ns.select(count);
+      ns.select(windowId, count);
       count += 1;
       ns.lastTimeout = setTimeout(continuation, ms);
     };
