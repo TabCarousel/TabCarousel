@@ -14,19 +14,22 @@ Misc Notes
 Installing
 ----------
 
-To install the code from GitHub, you'll have to install the unpacked extension:
+To install the unreleased code from GitHub, you'll have to install the unpacked extension:
 
 * git clone this repo or your fork
 * Open chrome://extensions in your browser
 * Hit the "+" button on Developer Mode (on the right side of the page)
 * Choose "Load unpacked extension..." and browse for the extracted files.
 
-If it installed correctly, you'll see a new toolbar button.
+If it installed correctly, you'll see a new toolbar button.  In most circumstances, you can edit unpacked extension and see your changes take effect, but some changes (such as changing the manifest.json file) aren't reloaded.
 
 Guidelines
 ----------
 
-* Looking for something to do?  Anything in the TODO file is a good place to start.
+* Looking for something to do?  Acknowledged [issues][iss] are a good place to start.
+* Fixing bugs you've found or adding features is also greatly appreciated!
+
+  [iss]: https://github.com/benjaminoakes/TabCarousel/issues
 
 Patches/Pull Requests
 ---------------------
