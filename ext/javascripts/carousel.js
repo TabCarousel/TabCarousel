@@ -33,19 +33,11 @@ var carousel = (function () {
   ns.lastReloads_ms = {};
 
   /**
-   * Unix-style timestamp
-   * @function
-   */
-  ns.timestamp = function () {
-    return (new Date()).getTime();
-  };
-
-  /**
    * Reload the given tab, if it has been more than ns.reloadWait_ms ago since it's last been reloaded.
    * @function
    */
   ns.reload = function (tabId) {
-    var now_ms = ns.timestamp(),
+    var now_ms = Date.now(),
       lastReload_ms = ns.lastReloads_ms[tabId];
     
     if (!lastReload_ms || (now_ms - lastReload_ms >= ns.defaults.reloadWait_ms)) {
@@ -158,7 +150,7 @@ var carousel = (function () {
    */
   ns.tutorial = function () {
     alert(ns.tutorialText);
-    ns.firstRun(ns.timestamp());
+    ns.firstRun(Date.now());
   };
 
   /**
