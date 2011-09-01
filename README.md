@@ -5,7 +5,7 @@ A Chrome extension to help you keep tabs on info you want to monitor.  It's grea
 
 Author: Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
 
-http://stillmaintained.com/benjaminoakes/TabCarousel.png
+[![Maintenance Status](http://stillmaintained.com/benjaminoakes/TabCarousel.png)](http://stillmaintained.com/benjaminoakes/TabCarousel)
 
 Installing
 ----------
