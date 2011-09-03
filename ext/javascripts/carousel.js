@@ -5,7 +5,7 @@
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
  */
 var carousel = (function () {
-  /** Module @namespace */
+  /** @namespace */
   var ns = {};
 
   /** @constant */
@@ -16,7 +16,10 @@ var carousel = (function () {
     reloadWait_ms: 5 * 60 * 1000
   };
 
-  /** English-language tutorial text for first run. */
+  /**
+   * English-language tutorial text for first run.
+   * @constant
+   */
   ns.tutorialText = [
     'First-Use Tutorial',
     '',
