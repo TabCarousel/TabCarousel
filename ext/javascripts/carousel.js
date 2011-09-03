@@ -1,8 +1,8 @@
 /**
- * Chrome plugin to cycle through tabs.
+ * Chrome extension to automatically cycle through tabs.
  * 
- * @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
+ * @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
  */
 var carousel = (function () {
     /** @namespace */
@@ -53,6 +53,7 @@ var carousel = (function () {
 
     /**
      * Select the given tab count, mod the number of tabs currently open.
+     *
      * @function
      * @seealso http://code.google.com/chrome/extensions/tabs.html
      * @seealso http://code.google.com/chrome/extensions/content_scripts.html#pi
@@ -196,7 +197,7 @@ var carousel = (function () {
     ns.OptionsController.prototype = {
         /**
          * Save callback for Options form.  Keep in mind "this" is the form, not the controller.
-         * @function
+         * @method
          */
         onsubmit: function () {
             var status = document.getElementById('status');
