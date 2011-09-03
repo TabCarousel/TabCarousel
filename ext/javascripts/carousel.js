@@ -1,3 +1,6 @@
+/*jslint browser: true, indent: 4 */
+var chrome;
+
 /**
  * Chrome extension to automatically cycle through tabs.
  * 
@@ -5,6 +8,8 @@
  * @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
  */
 var carousel = (function () {
+    'use strict';
+
     /** @namespace */
     var ns = {};
 
@@ -46,7 +51,9 @@ var carousel = (function () {
         if (!lastReload_ms || (now_ms - lastReload_ms >= ns.defaults.reloadWait_ms)) {
             // If a tab fails reloading, the host shows up as chrome://chromewebdata/
             // Protocol chrome:// URLs can't be reloaded through script injection, but you can simulate a reload using tabs.update.
-            chrome.tabs.get(tabId, function (t) { chrome.tabs.update(tabId, {url: t.url}) });
+            chrome.tabs.get(tabId, function (t) {
+                chrome.tabs.update(tabId, {url: t.url});
+            });
             ns.lastReloads_ms[tabId] = now_ms;
         }
     };
@@ -116,9 +123,9 @@ var carousel = (function () {
      */
     ns.firstRun = function (value) {
         if (value) {
-            localStorage['firstRun'] = value;
+            localStorage.firstRun = value;
         } else {
-            return !localStorage['firstRun'];
+            return !localStorage.firstRun;
         }
     };
 
@@ -128,9 +135,9 @@ var carousel = (function () {
      */
     ns.flipWait_ms = function (ms) {
         if (ms) {
-            localStorage['flipWait_ms'] = ms;
+            localStorage.flipWait_ms = ms;
         } else {
-            return localStorage['flipWait_ms'] || ns.defaults.flipWait_ms;
+            return localStorage.flipWait_ms || ns.defaults.flipWait_ms;
         }
     };
 
@@ -140,10 +147,10 @@ var carousel = (function () {
      */
     ns.automaticStart = function (value) {
         if (1 === arguments.length) {
-            localStorage['automaticStart'] = !!value;
+            localStorage.automaticStart = !!value;
         } else {
-            if (localStorage['automaticStart']) {
-                return JSON.parse(localStorage['automaticStart']);
+            if (localStorage.automaticStart) {
+                return JSON.parse(localStorage.automaticStart);
             }
         }
     };
@@ -153,7 +160,7 @@ var carousel = (function () {
      * @function
      */
     ns.tutorial = function () {
-        alert(ns.tutorialText);
+        window.alert(ns.tutorialText);
         ns.firstRun(Date.now());
     };
 
@@ -162,8 +169,6 @@ var carousel = (function () {
      * @function
      */
     ns.click = function () {
-        var entry, ms, parsed;
-
         if (ns.firstRun()) { ns.tutorial(); }
 
         if (!ns.running()) {
