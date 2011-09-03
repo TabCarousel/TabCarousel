@@ -9,7 +9,6 @@ var chrome;
  */
 var carousel = (function () {
     'use strict';
-
     /** @namespace */
     var ns = {};
 
@@ -198,9 +197,7 @@ var carousel = (function () {
         }
     };
 
-    /**
-     * @constructor
-     */
+    /** @constructor */
     ns.OptionsController = function (form) {
         this.form = form;
         this.form.flipWait_ms.value = ns.flipWait_ms();
