@@ -31,3 +31,11 @@ Example Uses
 On a HDTV that has a computer attached, open the NewRelic overview (and Background Tasks, etc.) for each app you'd like to monitor.  Set NewRelic to kiosk mode for each page, then hit the "Tab Carousel" toolbar button.
 
 The [TabCarousel wiki](https://github.com/benjaminoakes/TabCarousel/wiki) has more.
+
+Thanks
+======
+
+* Haiku, Inc for providing a great carousel projector icon under the MIT license (http://www.haiku-inc.org/haiku-icons.html)
+* Tango, for other icons
+* Seashore for a great, free, open source image editor
+* Pivotal Labs for providing Jasmine under the MIT license (http://pivotal.github.com/jasmine/download.html)
