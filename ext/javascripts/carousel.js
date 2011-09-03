@@ -3,7 +3,7 @@ var chrome;
 
 /**
  * Chrome extension to automatically cycle through tabs.
- * 
+ *
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
  * @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
  */
@@ -47,7 +47,7 @@ var carousel = (function () {
     ns.reload = function (tabId) {
         var now_ms = Date.now(),
             lastReload_ms = ns.lastReloads_ms[tabId];
-        
+
         if (!lastReload_ms || (now_ms - lastReload_ms >= ns.defaults.reloadWait_ms)) {
             // If a tab fails reloading, the host shows up as chrome://chromewebdata/
             // Protocol chrome:// URLs can't be reloaded through script injection, but you can simulate a reload using tabs.update.
@@ -83,8 +83,13 @@ var carousel = (function () {
             count = 0,
             windowId; // window in which Carousel was started
 
-        if (!ms) { ms = ns.flipWait_ms(); }
-        chrome.windows.getCurrent(function (w) { windowId = w.id; });
+        if (!ms) {
+            ms = ns.flipWait_ms();
+        }
+
+        chrome.windows.getCurrent(function (w) {
+            windowId = w.id;
+        });
 
         chrome.browserAction.setIcon({path: 'images/icon_32_exp_1.75_stop_emblem.png'});
         chrome.browserAction.setTitle({title: 'Stop Carousel'});
@@ -169,7 +174,9 @@ var carousel = (function () {
      * @function
      */
     ns.click = function () {
-        if (ns.firstRun()) { ns.tutorial(); }
+        if (ns.firstRun()) {
+            ns.tutorial();
+        }
 
         if (!ns.running()) {
             ns.start();
@@ -186,7 +193,9 @@ var carousel = (function () {
         chrome.browserAction.onClicked.addListener(ns.click);
         chrome.browserAction.setTitle({title: 'Start Carousel'});
 
-        if (ns.automaticStart()) { ns.start(); }
+        if (ns.automaticStart()) {
+            ns.start();
+        }
     };
 
     /**
