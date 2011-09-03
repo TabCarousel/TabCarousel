@@ -33,7 +33,7 @@ On a HDTV that has a computer attached, open the NewRelic overview (and Backgrou
 The [TabCarousel wiki](https://github.com/benjaminoakes/TabCarousel/wiki) has more.
 
 Thanks
-======
+------
 
 * Haiku, Inc for providing a great carousel projector icon under the MIT license (http://www.haiku-inc.org/haiku-icons.html)
 * Tango, for other icons
