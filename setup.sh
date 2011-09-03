@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
 # Set up development environment
+set -o errexit
 
+npm install
 yes "" | git flow init

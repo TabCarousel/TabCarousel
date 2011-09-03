@@ -1,0 +1,8 @@
+{
+  "name": "TabCarousel",
+  "version": "0.5.2",
+
+  "devDependencies": {
+    "jshint": "*"
+  }
+}
