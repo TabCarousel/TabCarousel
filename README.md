@@ -9,6 +9,20 @@ Author: Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
 
 [![Maintenance Status](http://stillmaintained.com/benjaminoakes/TabCarousel.png)](http://stillmaintained.com/benjaminoakes/TabCarousel)
 
+Buzz
+----
+
+### From Twitter
+
+#### [@flaneur](http://twitter.com/flaneur) 
+> Putting stats on a monitor; the TabCarousel Chrome extension is just the ticket
+> [10 Oct](http://twitter.com/flaneur/status/123363018754097152) 
+
+#### [@triiimit](https://twitter.com/triiimit)
+> Easy corporate/dept. dashboard: big TV w/PC, @gooddata reports in separate Chrome tabs, run TabCarousel, hit F11 for full screen. Voilà!
+> [21 Sep](https://twitter.com/triiimit/status/116522506361376768)
+
+
 Installing
 ----------
 
