@@ -4,5 +4,5 @@
 "     set secure " disable unsafe commands in local .vimrc files
 
 set expandtab " Use spaces instead of tabs
-set tabstop=4 " set tabstop to 2 spaces
-set shiftwidth=4 " make >> and friends (<<, ^T, ^D)  shift 2, not 8
+set tabstop=2 " set tabstop to 2 spaces
+set shiftwidth=2 " make >> and friends (<<, ^T, ^D)  shift 2, not 8
