@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-rm -rf pkg
-mkdir -p pkg
-zip -r ext.zip ext
-mv ext.zip pkg
