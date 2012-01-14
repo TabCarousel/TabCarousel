@@ -1,16 +1,17 @@
 /*jslint browser: true, indent: 4 */
 var chrome;
 
+/** @namespace */
+var carousel = {};
+
 /**
  * Chrome extension to automatically cycle through tabs.
  *
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
  * @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
  */
-var carousel = (function () {
+(function (ns) {
     'use strict';
-    /** @namespace */
-    var ns = {};
 
     /** @constant */
     ns.defaults = {
@@ -226,6 +227,4 @@ var carousel = (function () {
             return false;
         }
     };
-
-    return ns;
-}());
+}(carousel));
