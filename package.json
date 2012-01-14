@@ -3,6 +3,6 @@
   "version": "0.5.2",
 
   "devDependencies": {
-    "jshint": "*"
+    "jshint": "0.5.6"
   }
 }
