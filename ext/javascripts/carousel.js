@@ -1,4 +1,4 @@
-/*jslint browser: true, indent: 4 */
+/*jslint browser: true, indent: 2 */
 var chrome;
 
 /** @namespace */
@@ -12,7 +12,7 @@ var carousel = {};
  */
 (function (ns) {
   'use strict';
-  
+
   /** @constant */
   ns.defaults = {
     /** Interval between tabs, in ms. */
@@ -20,7 +20,7 @@ var carousel = {};
     /** Interval between reloading a tab, in ms.  Let's not kill other people's servers with automated requests. */
     reloadWait_ms: 5 * 60 * 1000
   };
-  
+
   /**
    * English-language tutorial text for first run.
    * @constant
@@ -34,12 +34,12 @@ var carousel = {};
     '',
     'If you want to change how often TabCarousel flips through your tabs, right click on the toolbar icon and choose "Options".'
   ].join('\n');
-  
+
   /**
    * Keep track of the last time a tab was refreshed so we can wait at least 5 minutes betweent refreshes.
    */
   ns.lastReloads_ms = {};
-  
+
   /**
    * Reload the given tab, if it has been more than ns.reloadWait_ms ago since it's last been reloaded.
    * @function
@@ -47,7 +47,7 @@ var carousel = {};
   ns.reload = function (tabId) {
     var now_ms = Date.now(),
       lastReload_ms = ns.lastReloads_ms[tabId];
-    
+
     if (!lastReload_ms || (now_ms - lastReload_ms >= ns.defaults.reloadWait_ms)) {
       // If a tab fails reloading, the host shows up as chrome://chromewebdata/
       // Protocol chrome:// URLs can't be reloaded through script injection, but you can simulate a reload using tabs.update.
@@ -57,7 +57,7 @@ var carousel = {};
       ns.lastReloads_ms[tabId] = now_ms;
     }
   };
-  
+
   /**
    * Select the given tab count, mod the number of tabs currently open.
    *
@@ -73,7 +73,7 @@ var carousel = {};
       ns.reload(nextTab.id);
     });
   };
-  
+
   /**
    * Put the carousel into motion.
    * @function
@@ -82,27 +82,27 @@ var carousel = {};
     var continuation,
       count = 0,
       windowId; // window in which Carousel was started
-  
+
     if (!ms) {
       ms = ns.flipWait_ms();
     }
-  
+
     chrome.windows.getCurrent(function (w) {
       windowId = w.id;
     });
-  
+
     chrome.browserAction.setIcon({path: 'images/icon_32_exp_1.75_stop_emblem.png'});
     chrome.browserAction.setTitle({title: 'Stop Carousel'});
-  
+
     continuation = function () {
       ns.select(windowId, count);
       count += 1;
       ns.lastTimeout = setTimeout(continuation, ms);
     };
-  
+
     continuation();
   };
-  
+
   /**
    * Is the carousel in motion?
    * @function
@@ -110,7 +110,7 @@ var carousel = {};
   ns.running = function () {
     return !!ns.lastTimeout;
   };
-  
+
   /**
    * Stop the carousel.
    * @function
@@ -121,7 +121,7 @@ var carousel = {};
     chrome.browserAction.setIcon({path: 'images/icon_32.png'});
     chrome.browserAction.setTitle({title: 'Start Carousel'});
   };
-  
+
   /**
    * Accessor for first run timestamp.
    * @function
@@ -133,7 +133,7 @@ var carousel = {};
       return !localStorage.firstRun;
     }
   };
-  
+
   /**
    * Accessor for user set flip wait timing or the default.
    * @function
@@ -145,7 +145,7 @@ var carousel = {};
       return localStorage.flipWait_ms || ns.defaults.flipWait_ms;
     }
   };
-  
+
   /**
    * Accessor for user set automatic start preference.
    * @function
@@ -159,7 +159,7 @@ var carousel = {};
       }
     }
   };
-  
+
   /**
    * Display the first-run tutorial.
    * @function
@@ -168,7 +168,7 @@ var carousel = {};
     window.alert(ns.tutorialText);
     ns.firstRun(Date.now());
   };
-  
+
   /**
    * Chrome browser action (toolbar button) click handler.
    * @function
@@ -177,14 +177,14 @@ var carousel = {};
     if (ns.firstRun()) {
       ns.tutorial();
     }
-  
+
     if (!ns.running()) {
       ns.start();
     } else {
       ns.stop();
     }
   };
-  
+
   /**
    * Background page onLoad handler.
    * @function
@@ -192,12 +192,12 @@ var carousel = {};
   ns.load = function () {
     chrome.browserAction.onClicked.addListener(ns.click);
     chrome.browserAction.setTitle({title: 'Start Carousel'});
-  
+
     if (ns.automaticStart()) {
       ns.start();
     }
   };
-  
+
   /** @constructor */
   ns.OptionsController = function (form) {
     this.form = form;
@@ -205,7 +205,7 @@ var carousel = {};
     this.form.automaticStart.checked = ns.automaticStart();
     this.form.onsubmit = this.onsubmit;
   };
-  
+
   ns.OptionsController.prototype = {
     /**
      * Save callback for Options form.  Keep in mind "this" is the form, not the controller.
@@ -214,16 +214,16 @@ var carousel = {};
     onsubmit: function () {
       var status = document.getElementById('status');
       status.innerHTML = '';
-  
+
       ns.flipWait_ms(this.flipWait_ms.value);
       ns.automaticStart(this.automaticStart.value);
-  
+
       // So the user sees a blink when saving values multiple times without leaving the page.
       setTimeout(function () {
         status.innerHTML = 'Saved';
         status.style.color = 'green';
       }, 100);
-  
+
       return false;
     }
   };
