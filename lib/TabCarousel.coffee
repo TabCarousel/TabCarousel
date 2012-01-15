@@ -7,6 +7,18 @@ A Chrome extension to automatically cycle through tabs.
 Implementation plan:
 --------------------
 
+Options
+
+* defaults
+* firstRun
+* flipWait_ms
+* automaticStart
+
+OptionsController
+
+* constructor
+* onsubmit
+
 Carousel
 
 * lastReloads_ms
@@ -22,18 +34,6 @@ BackgroundController
 * tutorial
 * click
 * load
-
-Options
-
-* defaults
-* firstRun
-* flipWait_ms
-* automaticStart
-
-OptionsController
-
-* constructor
-* onsubmit
 
 @seealso http://code.google.com/chrome/extensions/background_pages.html
 @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
@@ -59,18 +59,55 @@ ns.defaults =
   # Interval between reloading a tab, in ms.  Let's not kill other people's servers with automated requests.
   reloadWait_ms: 5 * 60 * 1000
 
-# English-language tutorial text for first run.
-# @constant
-ns.tutorialText =
-  """
-  First-Use Tutorial
+# Accessor for first run timestamp.
+# @function
+ns.firstRun = (value) ->
+  if value
+    localStorage.firstRun = value
+  else
+    !localStorage.firstRun
 
-  TabCarousel is simple:  open tabs you want to monitor throughout the day, then click the toolbar icon.  To stop, click the icon again.
+# Accessor for user set flip wait timing or the default.
+# @function
+ns.flipWait_ms = (ms) ->
+  if ms
+    localStorage.flipWait_ms = ms
+  else
+    localStorage.flipWait_ms || ns.defaults.flipWait_ms
 
-  By default, TabCarousel will flip through your tabs every #{String(ns.defaults.flipWait_ms / 1000)} s, reloading them every #{String(ns.defaults.reloadWait_ms / 1000 / 60)} min.  It's great on a unused display or TV.  Put Chrome in full-screen mode (F11, or cmd-shift-f on the Mac) and let it go.
+# Accessor for user set automatic start preference.
+# @function
+ns.automaticStart = (value) ->
+  if 1 == arguments.length
+    localStorage.automaticStart = !!value
+  else
+    if localStorage.automaticStart
+      JSON.parse(localStorage.automaticStart)
 
-  If you want to change how often TabCarousel flips through your tabs, right click on the toolbar icon and choose "Options".
-  """
+# @constructor
+ns.OptionsController = (form) ->
+  @form = form
+  @form.flipWait_ms.value = ns.flipWait_ms()
+  @form.automaticStart.checked = ns.automaticStart()
+  @form.onsubmit = @onsubmit
+
+ns.OptionsController.prototype =
+  # Save callback for Options form.  Keep in mind "this" is the form, not the controller.
+  # @method
+  onsubmit: ->
+    status = document.getElementById('status')
+    status.innerHTML = ''
+
+    ns.flipWait_ms(@flipWait_ms.value)
+    ns.automaticStart(@automaticStart.value)
+
+    # So the user sees a blink when saving values multiple times without leaving the page.
+    setTimeout(->
+      status.innerHTML = 'Saved'
+      status.style.color = 'green'
+    , 100)
+
+    false
 
 # Keep track of the last time a tab was refreshed so we can wait at least 5 minutes betweent refreshes.
 ns.lastReloads_ms = {}
@@ -135,30 +172,18 @@ ns.stop = () ->
   chrome.browserAction.setIcon(path: 'images/icon_32.png')
   chrome.browserAction.setTitle(title: 'Start Carousel')
 
-# Accessor for first run timestamp.
-# @function
-ns.firstRun = (value) ->
-  if value
-    localStorage.firstRun = value
-  else
-    !localStorage.firstRun
+# English-language tutorial text for first run.
+# @constant
+ns.tutorialText =
+  """
+  First-Use Tutorial
 
-# Accessor for user set flip wait timing or the default.
-# @function
-ns.flipWait_ms = (ms) ->
-  if ms
-    localStorage.flipWait_ms = ms
-  else
-    localStorage.flipWait_ms || ns.defaults.flipWait_ms
+  TabCarousel is simple:  open tabs you want to monitor throughout the day, then click the toolbar icon.  To stop, click the icon again.
 
-# Accessor for user set automatic start preference.
-# @function
-ns.automaticStart = (value) ->
-  if 1 == arguments.length
-    localStorage.automaticStart = !!value
-  else
-    if localStorage.automaticStart
-      JSON.parse(localStorage.automaticStart)
+  By default, TabCarousel will flip through your tabs every #{String(ns.defaults.flipWait_ms / 1000)} s, reloading them every #{String(ns.defaults.reloadWait_ms / 1000 / 60)} min.  It's great on a unused display or TV.  Put Chrome in full-screen mode (F11, or cmd-shift-f on the Mac) and let it go.
+
+  If you want to change how often TabCarousel flips through your tabs, right click on the toolbar icon and choose "Options".
+  """
 
 # Display the first-run tutorial.
 # @function
@@ -185,28 +210,3 @@ ns.load = () ->
 
   if ns.automaticStart()
     ns.start()
-
-# @constructor
-ns.OptionsController = (form) ->
-  @form = form
-  @form.flipWait_ms.value = ns.flipWait_ms()
-  @form.automaticStart.checked = ns.automaticStart()
-  @form.onsubmit = @onsubmit
-
-ns.OptionsController.prototype =
-  # Save callback for Options form.  Keep in mind "this" is the form, not the controller.
-  # @method
-  onsubmit: ->
-    status = document.getElementById('status')
-    status.innerHTML = ''
-
-    ns.flipWait_ms(@flipWait_ms.value)
-    ns.automaticStart(@automaticStart.value)
-
-    # So the user sees a blink when saving values multiple times without leaving the page.
-    setTimeout(->
-      status.innerHTML = 'Saved'
-      status.style.color = 'green'
-    , 100)
-
-    false
