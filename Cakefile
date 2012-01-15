@@ -10,4 +10,4 @@ task 'spec', 'Run Jasmine specs in spec/', ->
 task 'spec:browser', 'Compile Jasmine specs for use with SpecRunner.html', ->
   exec 'coffee --output ext/javascripts --compile --join carousel.js --watch lib/*.coffee', callback
   exec 'coffee --output build --compile --join TabCarouselSpec.js --watch spec/*.coffee', callback
-  exec 'open SpecRunner.html', callback
+  exec 'open spec/runner.html', callback
