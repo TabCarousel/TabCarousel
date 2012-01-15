@@ -1,7 +1,39 @@
 ###
 TabCarousel
+===========
 
 A Chrome extension to automatically cycle through tabs.
+
+Implementation plan:
+--------------------
+
+Carousel
+
+* lastReloads_ms
+* reload
+* select
+* start
+* running
+* stop
+
+BackgroundController
+
+* tutorialText
+* tutorial
+* click
+* load
+
+Options
+
+* defaults
+* firstRun
+* flipWait_ms
+* automaticStart
+
+OptionsController
+
+* constructor
+* onsubmit
 
 @seealso http://code.google.com/chrome/extensions/background_pages.html
 @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
