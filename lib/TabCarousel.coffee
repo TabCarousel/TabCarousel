@@ -1,3 +1,9 @@
+###
+Chrome extension to automatically cycle through tabs.
+
+@seealso http://code.google.com/chrome/extensions/background_pages.html
+@author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
+###
 'use strict'
 
 if require?
@@ -10,10 +16,6 @@ carousel = {}
 root = exports ? this
 root.carousel = carousel
 
-# Chrome extension to automatically cycle through tabs.
-# 
-# @seealso http://code.google.com/chrome/extensions/background_pages.html
-# @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
 ns = carousel
 
 # @constant
@@ -67,9 +69,8 @@ ns.select = (windowId, count) ->
 # Put the carousel into motion.
 # @function
 ns.start = (ms) ->
-  continuation
   count = 0
-  windowId # window in which Carousel was started
+  windowId = undefined # window in which Carousel was started
 
   unless ms
     ms = ns.flipWait_ms()
