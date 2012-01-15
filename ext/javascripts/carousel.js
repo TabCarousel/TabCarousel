@@ -1,8 +1,15 @@
 /*jslint browser: true, indent: 2 */
 var chrome;
+var localStorage;
+
+if (typeof exports !== "undefined") {
+  localStorage = require('localStorage');
+}
 
 /** @namespace */
 var carousel = {};
+var root = typeof exports !== "undefined" && exports !== null ? exports : this;
+root.carousel = carousel;
 
 /**
  * Chrome extension to automatically cycle through tabs.
