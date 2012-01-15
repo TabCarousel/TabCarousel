@@ -49,7 +49,6 @@ else
 TabCarousel = {}
 root = exports ? this
 root.TabCarousel = TabCarousel
-
 ns = TabCarousel
 
 # @constant
@@ -84,16 +83,14 @@ ns.automaticStart = (value) ->
     if localStorage.automaticStart
       JSON.parse(localStorage.automaticStart)
 
-# @constructor
-ns.OptionsController = (form) ->
-  @form = form
-  @form.flipWait_ms.value = ns.flipWait_ms()
-  @form.automaticStart.checked = ns.automaticStart()
-  @form.onsubmit = @onsubmit
+class OptionsController
+  constructor: (form) ->
+    @form = form
+    @form.flipWait_ms.value = ns.flipWait_ms()
+    @form.automaticStart.checked = ns.automaticStart()
+    @form.onsubmit = @onsubmit
 
-ns.OptionsController.prototype =
   # Save callback for Options form.  Keep in mind "this" is the form, not the controller.
-  # @method
   onsubmit: ->
     status = document.getElementById('status')
     status.innerHTML = ''
@@ -108,6 +105,8 @@ ns.OptionsController.prototype =
     , 100)
 
     false
+
+ns.OptionsController = OptionsController
 
 # Keep track of the last time a tab was refreshed so we can wait at least 5 minutes betweent refreshes.
 ns.lastReloads_ms = {}
