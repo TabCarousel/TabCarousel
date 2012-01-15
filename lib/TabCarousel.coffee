@@ -11,7 +11,7 @@ A Chrome extension to automatically cycle through tabs.
 if require?
   localStorage = require('localStorage')
 else
-  localStorage = this.localStorage
+  localStorage = window.localStorage
 
 # @namespace
 carousel = {}
@@ -156,10 +156,10 @@ ns.load = () ->
 
 # @constructor
 ns.OptionsController = (form) ->
-  this.form = form
-  this.form.flipWait_ms.value = ns.flipWait_ms()
-  this.form.automaticStart.checked = ns.automaticStart()
-  this.form.onsubmit = this.onsubmit
+  @form = form
+  @form.flipWait_ms.value = ns.flipWait_ms()
+  @form.automaticStart.checked = ns.automaticStart()
+  @form.onsubmit = @onsubmit
 
 ns.OptionsController.prototype =
   # Save callback for Options form.  Keep in mind "this" is the form, not the controller.
@@ -168,8 +168,8 @@ ns.OptionsController.prototype =
     status = document.getElementById('status')
     status.innerHTML = ''
 
-    ns.flipWait_ms(this.flipWait_ms.value)
-    ns.automaticStart(this.automaticStart.value)
+    ns.flipWait_ms(@flipWait_ms.value)
+    ns.automaticStart(@automaticStart.value)
 
     # So the user sees a blink when saving values multiple times without leaving the page.
     setTimeout(->
