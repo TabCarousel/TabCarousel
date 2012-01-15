@@ -1,12 +1,12 @@
 if require?
   localStorage = require('localStorage')
-  {carousel} = require('../lib/TabCarousel')
+  {TabCarousel} = require('../lib/TabCarousel')
 else
   localStorage = this.localStorage
-  carousel = this.carousel
+  TabCarousel = this.TabCarousel
 
 describe "localStorage accessors", ->
-  ns = carousel
+  ns = TabCarousel
 
   beforeEach ->
     localStorage.clear()

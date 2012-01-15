@@ -46,11 +46,11 @@ else
   localStorage = window.localStorage
 
 # @namespace
-carousel = {}
+TabCarousel = {}
 root = exports ? this
-root.carousel = carousel
+root.TabCarousel = TabCarousel
 
-ns = carousel
+ns = TabCarousel
 
 # @constant
 ns.defaults =
@@ -104,7 +104,7 @@ ns.select = (windowId, count) ->
 # @function
 ns.start = (ms) ->
   count = 0
-  windowId = undefined # window in which Carousel was started
+  windowId = undefined # window in which TabCarousel was started
 
   unless ms
     ms = ns.flipWait_ms()
