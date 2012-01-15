@@ -1,4 +1,4 @@
-{exec}  = require('child_process')
+{exec} = require('child_process')
 
 callback = (err, stdout, stderr) ->
   throw err if err
