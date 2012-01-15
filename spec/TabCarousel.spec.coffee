@@ -1,6 +1,6 @@
 if require?
   localStorage = require('localStorage')
-  {carousel} = require('../ext/javascripts/carousel')
+  {carousel} = require('../lib/TabCarousel')
 else
   localStorage = this.localStorage
   carousel = this.carousel
