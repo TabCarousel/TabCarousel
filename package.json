@@ -7,6 +7,7 @@
     "coffee-script": "1.2.0",
     "jasmine-node": "1.0.17",
     "jshint": "0.5.6",
-    "localStorage": "1.0.0"
+    "localStorage": "1.0.0",
+    "rimraf": "1.0.9"
   }
 }
