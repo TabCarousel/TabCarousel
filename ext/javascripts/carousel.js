@@ -2,7 +2,7 @@
 var chrome;
 var localStorage;
 
-if (typeof exports !== "undefined") {
+if (typeof localStorage === "undefined") {
   localStorage = require('localStorage');
 }
 

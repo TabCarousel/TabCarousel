@@ -5,4 +5,7 @@ task 'spec', 'Run Jasmine specs in spec/', ->
    throw err if err
    console.log(stdout + stderr)
 
-# coffee --output public --compile --join TabCarouselSpec.js --watch spec/*.coffee
+task 'spec:browser', 'Compile Jasmine specs for use with SpecRunner.html', ->
+  exec 'coffee --output build --compile --join TabCarouselSpec.js --watch spec/*.coffee', (err, stdout, stderr) ->
+   throw err if err
+   console.log(stdout + stderr)

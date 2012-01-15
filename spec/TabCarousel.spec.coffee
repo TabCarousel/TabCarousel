@@ -1,5 +1,9 @@
-localStorage = require('localStorage')
-{carousel} = require('../ext/javascripts/carousel')
+if require?
+  localStorage = require('localStorage')
+  {carousel} = require('../ext/javascripts/carousel')
+else
+  localStorage = this.localStorage
+  carousel = this.carousel
 
 describe "localStorage accessors", ->
   ns = carousel
