@@ -1,5 +1,7 @@
 ###
-Chrome extension to automatically cycle through tabs.
+TabCarousel
+
+A Chrome extension to automatically cycle through tabs.
 
 @seealso http://code.google.com/chrome/extensions/background_pages.html
 @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
