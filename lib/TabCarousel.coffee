@@ -4,37 +4,6 @@ TabCarousel
 
 A Chrome extension to automatically cycle through tabs.
 
-Implementation plan:
---------------------
-
-Options
-
-* defaults
-* firstRun
-* flipWait_ms
-* automaticStart
-
-OptionsController
-
-* constructor
-* onsubmit
-
-Carousel
-
-* lastReloads_ms
-* reload
-* select
-* start
-* running
-* stop
-
-BackgroundController
-
-* tutorialText
-* tutorial
-* click
-* load
-
 @seealso http://code.google.com/chrome/extensions/background_pages.html
 @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
 ###
@@ -45,7 +14,6 @@ if require?
 else
   localStorage = window.localStorage
 
-# @namespace
 TabCarousel = {}
 root = exports ? this
 root.TabCarousel = TabCarousel
@@ -186,13 +154,11 @@ class BackgroundController
     """
   
   # Display the first-run tutorial.
-  # @function
   tutorial: () ->
     window.alert(@tutorialText)
     options.firstRun(Date.now())
   
   # Chrome browser action (toolbar button) click handler.
-  # @function
   click: () =>
     if options.firstRun()
       @tutorial()
@@ -203,7 +169,6 @@ class BackgroundController
       carousel.stop()
   
   # Background page onLoad handler.
-  # @function
   load: () ->
     chrome.browserAction.onClicked.addListener(@click)
     chrome.browserAction.setTitle(title: 'Start Carousel')
