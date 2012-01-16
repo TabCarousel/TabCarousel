@@ -5,8 +5,8 @@ else
   localStorage = this.localStorage
   Options = this.Options
 
-describe Options, ->
-  describe "automaticStart", ->
+describe "Options", ->
+ describe "automaticStart", ->
     beforeEach ->
       @options = new Options
       localStorage.clear()
