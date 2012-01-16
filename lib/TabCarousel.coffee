@@ -170,41 +170,44 @@ class Carousel
 
 carousel = new Carousel
 
-# English-language tutorial text for first run.
-# @constant
-ns.tutorialText =
-  """
-  First-Use Tutorial
+class BackgroundController
+  # English-language tutorial text for first run.
+  # @constant
+  tutorialText:
+    """
+    First-Use Tutorial
+  
+    TabCarousel is simple:  open tabs you want to monitor throughout the day, then click the toolbar icon.  To stop, click the icon again.
+  
+    By default, TabCarousel will flip through your tabs every #{String(ns.defaults.flipWait_ms / 1000)} s, reloading them every #{String(ns.defaults.reloadWait_ms / 1000 / 60)} min.  It's great on a unused display or TV.  Put Chrome in full-screen mode (F11, or cmd-shift-f on the Mac) and let it go.
+  
+    If you want to change how often TabCarousel flips through your tabs, right click on the toolbar icon and choose "Options".
+    """
+  
+  # Display the first-run tutorial.
+  # @function
+  tutorial: () ->
+    window.alert(@tutorialText)
+    ns.firstRun(Date.now())
+  
+  # Chrome browser action (toolbar button) click handler.
+  # @function
+  click: () =>
+    if ns.firstRun()
+      @tutorial()
+  
+    if !carousel.running()
+      carousel.start()
+    else
+      carousel.stop()
+  
+  # Background page onLoad handler.
+  # @function
+  load: () ->
+    chrome.browserAction.onClicked.addListener(@click)
+    chrome.browserAction.setTitle(title: 'Start Carousel')
+  
+    if ns.automaticStart()
+      carousel.start()
 
-  TabCarousel is simple:  open tabs you want to monitor throughout the day, then click the toolbar icon.  To stop, click the icon again.
-
-  By default, TabCarousel will flip through your tabs every #{String(ns.defaults.flipWait_ms / 1000)} s, reloading them every #{String(ns.defaults.reloadWait_ms / 1000 / 60)} min.  It's great on a unused display or TV.  Put Chrome in full-screen mode (F11, or cmd-shift-f on the Mac) and let it go.
-
-  If you want to change how often TabCarousel flips through your tabs, right click on the toolbar icon and choose "Options".
-  """
-
-# Display the first-run tutorial.
-# @function
-ns.tutorial = () ->
-  window.alert(ns.tutorialText)
-  ns.firstRun(Date.now())
-
-# Chrome browser action (toolbar button) click handler.
-# @function
-ns.click = () ->
-  if ns.firstRun()
-    ns.tutorial()
-
-  if !carousel.running()
-    carousel.start()
-  else
-    carousel.stop()
-
-# Background page onLoad handler.
-# @function
-ns.load = () ->
-  chrome.browserAction.onClicked.addListener(ns.click)
-  chrome.browserAction.setTitle(title: 'Start Carousel')
-
-  if ns.automaticStart()
-    carousel.start()
+ns.BackgroundController = BackgroundController
