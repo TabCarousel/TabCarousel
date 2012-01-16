@@ -50,44 +50,45 @@ TabCarousel = {}
 root = exports ? this
 root.TabCarousel = TabCarousel
 ns = TabCarousel
+  
+class Options
+  # Accessor for first run timestamp.
+  firstRun: (value) ->
+    if value
+      localStorage.firstRun = value
+    else
+      !localStorage.firstRun
+  
+  # Accessor for user set flip wait timing or the default.
+  flipWait_ms: (ms) ->
+    if ms
+      localStorage.flipWait_ms = ms
+    else
+      localStorage.flipWait_ms || Options.defaults.flipWait_ms
+  
+  # Accessor for user set automatic start preference.
+  automaticStart: (value) ->
+    if 1 == arguments.length
+      localStorage.automaticStart = !!value
+    else
+      if localStorage.automaticStart
+        JSON.parse(localStorage.automaticStart)
 
 # @constant
-ns.defaults =
+Options.defaults =
   # Interval between tabs, in ms.
   flipWait_ms: 15 * 1000,
   # Interval between reloading a tab, in ms.  Let's not kill other people's servers with automated requests.
   reloadWait_ms: 5 * 60 * 1000
 
-# Accessor for first run timestamp.
-# @function
-ns.firstRun = (value) ->
-  if value
-    localStorage.firstRun = value
-  else
-    !localStorage.firstRun
-
-# Accessor for user set flip wait timing or the default.
-# @function
-ns.flipWait_ms = (ms) ->
-  if ms
-    localStorage.flipWait_ms = ms
-  else
-    localStorage.flipWait_ms || ns.defaults.flipWait_ms
-
-# Accessor for user set automatic start preference.
-# @function
-ns.automaticStart = (value) ->
-  if 1 == arguments.length
-    localStorage.automaticStart = !!value
-  else
-    if localStorage.automaticStart
-      JSON.parse(localStorage.automaticStart)
+root.Options = Options
+options = new Options
 
 class OptionsController
   constructor: (form) ->
     @form = form
-    @form.flipWait_ms.value = ns.flipWait_ms()
-    @form.automaticStart.checked = ns.automaticStart()
+    @form.flipWait_ms.value = options.flipWait_ms()
+    @form.automaticStart.checked = options.automaticStart()
     @form.onsubmit = @onsubmit
 
   # Save callback for Options form.  Keep in mind "this" is the form, not the controller.
@@ -95,8 +96,8 @@ class OptionsController
     status = document.getElementById('status')
     status.innerHTML = ''
 
-    ns.flipWait_ms(@flipWait_ms.value)
-    ns.automaticStart(@automaticStart.value)
+    options.flipWait_ms(@flipWait_ms.value)
+    options.automaticStart(@automaticStart.value)
 
     # So the user sees a blink when saving values multiple times without leaving the page.
     setTimeout(->
@@ -113,12 +114,12 @@ class Carousel
     # Keep track of the last time a tab was refreshed so we can wait at least 5 minutes betweent refreshes.
     @lastReloads_ms = {}
   
-  # Reload the given tab, if it has been more than ns.reloadWait_ms ago since it's last been reloaded.
+  # Reload the given tab, if it has been more than reloadWait_ms ago since it's last been reloaded.
   reload: (tabId) ->
     now_ms = Date.now()
     lastReload_ms = @lastReloads_ms[tabId]
   
-    if !lastReload_ms || (now_ms - lastReload_ms >= ns.defaults.reloadWait_ms)
+    if !lastReload_ms || (now_ms - lastReload_ms >= Options.defaults.reloadWait_ms)
       # If a tab fails reloading, the host shows up as chrome://chromewebdata/
       # Protocol chrome:// URLs can't be reloaded through script injection, but you can simulate a reload using tabs.update.
       chrome.tabs.get tabId, (t) =>
@@ -142,7 +143,7 @@ class Carousel
     windowId = undefined # window in which TabCarousel was started
   
     unless ms
-      ms = ns.flipWait_ms()
+      ms = options.flipWait_ms()
   
     chrome.windows.getCurrent (w) =>
       windowId = w.id
@@ -179,7 +180,7 @@ class BackgroundController
   
     TabCarousel is simple:  open tabs you want to monitor throughout the day, then click the toolbar icon.  To stop, click the icon again.
   
-    By default, TabCarousel will flip through your tabs every #{String(ns.defaults.flipWait_ms / 1000)} s, reloading them every #{String(ns.defaults.reloadWait_ms / 1000 / 60)} min.  It's great on a unused display or TV.  Put Chrome in full-screen mode (F11, or cmd-shift-f on the Mac) and let it go.
+    By default, TabCarousel will flip through your tabs every #{String(Options.defaults.flipWait_ms / 1000)} s, reloading them every #{String(Options.defaults.reloadWait_ms / 1000 / 60)} min.  It's great on a unused display or TV.  Put Chrome in full-screen mode (F11, or cmd-shift-f on the Mac) and let it go.
   
     If you want to change how often TabCarousel flips through your tabs, right click on the toolbar icon and choose "Options".
     """
@@ -188,12 +189,12 @@ class BackgroundController
   # @function
   tutorial: () ->
     window.alert(@tutorialText)
-    ns.firstRun(Date.now())
+    options.firstRun(Date.now())
   
   # Chrome browser action (toolbar button) click handler.
   # @function
   click: () =>
-    if ns.firstRun()
+    if options.firstRun()
       @tutorial()
   
     if !carousel.running()
@@ -207,7 +208,7 @@ class BackgroundController
     chrome.browserAction.onClicked.addListener(@click)
     chrome.browserAction.setTitle(title: 'Start Carousel')
   
-    if ns.automaticStart()
+    if options.automaticStart()
       carousel.start()
 
 ns.BackgroundController = BackgroundController
