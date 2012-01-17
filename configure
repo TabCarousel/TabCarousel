@@ -3,4 +3,5 @@
 set -o errexit
 
 npm install
+easy_install Pygments # for docco
 yes "" | git flow init
