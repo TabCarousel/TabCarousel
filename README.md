@@ -53,3 +53,8 @@ Thanks
 * Tango, for other icons
 * Seashore for a great, free, open source image editor
 * Pivotal Labs for providing Jasmine under the MIT license (http://pivotal.github.com/jasmine/download.html)
+
+License
+-------
+
+GPLv2.  See LICENSE for a copy

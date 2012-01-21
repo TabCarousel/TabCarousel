@@ -4,6 +4,8 @@ TabCarousel
 
 A Chrome extension to automatically cycle through tabs.
 
+Licensed under the GPL v2.  Source code is available at https://github.com/benjaminoakes/TabCarousel
+
 @seealso http://code.google.com/chrome/extensions/background_pages.html
 @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
 ###
