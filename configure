@@ -6,6 +6,12 @@ curl -so .roboconf.sh https://raw.github.com/benjaminoakes/roboconf/master/roboc
 source .roboconf.sh
 
 roboconf-npm
+
+# For `docco`
+roboconf-check python
+roboconf-check easy_install
+easy_install Pygments
+
 roboconf-check git
 roboconf-check git-flow
 yes "" | git flow init
