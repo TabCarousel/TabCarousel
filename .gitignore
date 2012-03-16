@@ -1,3 +1,4 @@
-/node_modules
+.roboconf.sh
 /build
 /ext/javascripts
+/node_modules

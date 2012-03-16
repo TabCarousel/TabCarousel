@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
-# Set up development environment
 set -o errexit
 
-npm install
+# Bootstrap
+curl -so .roboconf.sh https://raw.github.com/benjaminoakes/roboconf/master/roboconf.sh
+source .roboconf.sh
+
+roboconf-npm
+roboconf-check git
+roboconf-check git-flow
 yes "" | git flow init
