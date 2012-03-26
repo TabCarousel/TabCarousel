@@ -1,6 +1,8 @@
 Tab Carousel
 ============
 
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=benjaminoakes&url=https://github.com/benjaminoakes/TabCarousel&title=TabCarousel&language=&tags=github&category=software)
+
 A Chrome extension to help you keep tabs on info you want to monitor.  It's great for cycling through tabs on an external display, like a TV.
 
 Have an idea to make TabCarousel better?  Find a bug?  Having a problem?  Please submit an [issue](https://github.com/benjaminoakes/TabCarousel/issues). 
