@@ -1,5 +1,5 @@
-Tab Carousel
-============
+TabCarousel
+===========
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=benjaminoakes&url=https://github.com/benjaminoakes/TabCarousel&title=TabCarousel&language=en_GB&tags=github&category=software)
 
@@ -44,7 +44,7 @@ If you want to change how often TabCarousel flips through your tabs, right click
 Example Uses
 ------------
 
-On a HDTV that has a computer attached, open the NewRelic overview (and Background Tasks, etc.) for each app you'd like to monitor.  Set NewRelic to kiosk mode for each page, then hit the "Tab Carousel" toolbar button.
+On a HDTV that has a computer attached, open the NewRelic overview (and Background Tasks, etc.) for each app you'd like to monitor.  Set NewRelic to kiosk mode for each page, then hit the "TabCarousel" toolbar button.
 
 The [TabCarousel wiki](https://github.com/benjaminoakes/TabCarousel/wiki) has more.
 
