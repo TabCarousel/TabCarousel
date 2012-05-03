@@ -28,7 +28,7 @@ Buzz
 Installing
 ----------
 
-[![Available on the Chrome Web Store](http://code.google.com/chrome/webstore/images/branding/ChromeWebStore_BadgeWBorder_v2_206x58.png)](http://chrome.google.com/webstore/detail/ddldimidiliclngjipajmjjiakhbcohn)
+[![Available on the Chrome Web Store](https://github.com/benjaminoakes/TabCarousel/raw/develop/resources/ChromeWebStore_BadgeWBorder_v2_206x58.png)](http://chrome.google.com/webstore/detail/ddldimidiliclngjipajmjjiakhbcohn)
 
 Installation is simple:  visit the [Chrome Web Store page](http://chrome.google.com/webstore/detail/ddldimidiliclngjipajmjjiakhbcohn) and click "Install".  Chrome will take it from there.
 
