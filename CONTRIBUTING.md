@@ -10,6 +10,13 @@ Misc Notes
 
 * This was originally written on Chrome 12.0.742.100 on Mac OS X 10.6.4.
 * This is a Chrome extension.  This is a tutorial if you're unfamiliar:  http://code.google.com/chrome/extensions/getstarted.html
+* TabCarousel is currently a labor of love.  I originally made it because I thought it would be useful, but I also use it as a vehicle to try out new technologies.  For example:
+    * Getting experience with making Chrome extensions
+    * Getting experience with Jasmine (outside of the normal browser workflow)
+    * Getting experience with CoffeeScript (largely abandoned -- I find it easier to use, but not significantly enough to justify it turning away contributors)
+    * Getting experience with Bootstrap
+    * Getting experience with Backbone
+    * More in the future...
 
 Installing
 ----------
