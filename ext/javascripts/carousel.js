@@ -201,7 +201,7 @@ var carousel = (function () {
       $this.find('.alert').hide();
 
       ns.flipWait_ms(this.flipWait_ms.value);
-      ns.automaticStart(this.automaticStart.value);
+      ns.automaticStart(this.automaticStart.checked);
 
       $this.find('.alert-success').show();
 
