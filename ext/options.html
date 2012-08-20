@@ -95,7 +95,9 @@
     <script src="vendor/bootstrap.js"></script>
     <script src="javascripts/carousel.js"></script>
     <script>
-    new carousel.OptionsController(document.forms['options']);
+    $(function () {
+      new carousel.OptionsController(document.forms['options']);
+    });
     </script>
   </body>
 </html>
