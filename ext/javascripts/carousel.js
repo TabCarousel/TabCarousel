@@ -200,7 +200,7 @@ var carousel = (function () {
       status.innerHTML = '';
 
       ns.flipWait_ms(this.flipWait_ms.value);
-      ns.automaticStart(this.automaticStart.value);
+      ns.automaticStart(this.automaticStart.checked);
 
       // So the user sees a blink when saving values multiple times without leaving the page.
       setTimeout(function () {
