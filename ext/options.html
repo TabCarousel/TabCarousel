@@ -1,43 +1,101 @@
 <!DOCTYPE html>
-<html>
-<head>
-<style>
-body {
-  font-family: "Trebuchet MS", sans-serif;
-}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>TabCarousel - Settings</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-th {
-  font-weight: normal;
-  text-align: right;
-}
-</style>
-</head>
-<body>
-<h1>TabCarousel Options</h1>
+    <!-- Le styles -->
+    <link href="vendor/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="vendor/bootstrap-responsive.css" rel="stylesheet">
 
-<form id="options">
-<table>
-<tr>
-<th><label for="flipWait_ms">Flip Wait (ms):</label></th>
-<td><input atuofocus id="flipWait_ms" name="flipWait_ms" type="number" min="1000" step="1000" /></td>
-</tr>
-<tr>
-<th><label for="automaticStart">Start automatically:</label></th>
-<td><input id="automaticStart" name="automaticStart" type="checkbox" /></td>
-</tr>
-</table>
-<br />
-<input type="submit" value="Save" />
-<span id="status"></span>
-</form>
+    <style>
+    .logo-med {
+      height: 40px;
+      width: 40px;
+    }
+    </style>
+  </head>
 
-<p>
-<a href="https://github.com/benjaminoakes/TabCarousel/wiki">Wiki</a> | <a href="https://github.com/benjaminoakes/TabCarousel/issues">Report a bug or request a feature</a> | <a href="https://github.com/benjaminoakes/TabCarousel">Source Code</a>
-</p>
+  <body>
 
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <img class="pull-left logo-med" src="vendor/icon.svg" />
+          <a class="brand" href="https://github.com/benjaminoakes/TabCarousel">TabCarousel</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="span12">
+        <i class="icon-star" /></i> <a href="https://github.com/benjaminoakes/TabCarousel/issues">Request a feature</a>
+        <i class="icon-exclamation-sign" /></i> <a href="https://github.com/benjaminoakes/TabCarousel/issues">Report a bug</a>
+        <i class="icon-pencil" /></i> <a href="https://github.com/benjaminoakes/TabCarousel/wiki">Wiki</a>
+        <i class="icon-folder-open" /></i> <a href="https://github.com/benjaminoakes/TabCarousel">Source Code</a>
+      </div>
+
+      <div class="span12 page-header">
+        <h1>
+        Options
+        <small>Make TabCarousel do what you want</small>
+        </h1>
+      </div>
+
+      <div class="span12">
+        <form class="form-horizontal" id="options">
+          <div class="row">
+            <div class="span6 alert alert-success span6 hide">
+              <button type="button" class="close hide-parent">&times;</button>
+              <strong>Success.</strong>  Options saved.
+            </div>
+
+            <div class="span6 alert alert-error span6 hide">
+              <button type="button" class="close hide-parent">&times;</button>
+              <strong>Error.</strong>  An error occurred while saving options.  Please try again.
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="flipWait_ms">Flip Wait (ms)</label>
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on"><i class="icon-time" /></i></span><input name="flipWait_ms" type="number" min="1000" step="1000" />
+              </div>
+              <p class="help-block">How long should TabCarousel wait before flipping tabs, in milliseconds?</p>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="automaticStart">Start automatically?</label>
+            <div class="controls">
+              <input name="automaticStart" type="checkbox">
+              <p class="help-block">When Chrome starts, TabCarousel starts.  Great for dedicated TabCarousel displays.</p>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="vendor/jquery.js"></script>
+    <script src="vendor/bootstrap.js"></script>
 <script src="javascripts/carousel.js"></script>
 <script>
 new carousel.OptionsController(document.forms['options']);
 </script>
-</body>
+  </body>
 </html>

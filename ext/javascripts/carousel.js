@@ -196,18 +196,8 @@ var carousel = (function () {
      * @function
      */
     onsubmit: function () {
-      var status = document.getElementById('status');
-      status.innerHTML = '';
-
       ns.flipWait_ms(this.flipWait_ms.value);
       ns.automaticStart(this.automaticStart.value);
-
-      // So the user sees a blink when saving values multiple times without leaving the page.
-      setTimeout(function () {
-        status.innerHTML = 'Saved';
-        status.style.color = 'green';
-      }, 100);
-
       return false;
     }
   };
