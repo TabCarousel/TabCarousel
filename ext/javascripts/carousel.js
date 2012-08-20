@@ -196,11 +196,33 @@ var carousel = (function () {
      * @function
      */
     onsubmit: function () {
+      var $this = $(this)
+
+      $this.find('.alert').hide();
+
       ns.flipWait_ms(this.flipWait_ms.value);
       ns.automaticStart(this.automaticStart.value);
+
+      $this.find('.alert-success').show();
+
       return false;
     }
   };
 
   return ns;
+}());
+
+carousel.components = (function () {
+  // Hide the parent element.  Useful for "close" buttons.
+  //
+  // Unlike the built-in behavior for Bootstrap close buttons, this does **not** delete the content; it just hides it.
+  function hideParent() {
+    $(this).parent().hide();
+  }
+
+  return {
+    init: function () {
+      $('.close.hide-parent').click(hideParent);
+    }
+  };
 }());
