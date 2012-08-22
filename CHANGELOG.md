@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+0.5.3
+-----
+
+* Fix bug #7: "can't turn off 'start automatically'"
+* Implement #16:
+    * Switch to manifest version 2
+    * Only use JS in separate files for CSP
+
 0.5.2
 -----
 
