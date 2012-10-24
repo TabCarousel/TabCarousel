@@ -17,6 +17,8 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 var TabCarousel = (function () {
+  var config;
+
   /** Module @namespace */
   var ns = {};
 
@@ -25,40 +27,33 @@ var TabCarousel = (function () {
     id: 'singleton',
 
     defaults: {
-      // Has TabCarousel been run before?
+      // Is this the first time that TabCarousel has been run?
       firstRun: true,
+      // Does TabCarousel start when it is loaded?
+      automaticStart: false,
       // Interval between switching tabs, in ms.
       flipWait_ms: 15 * 1000,
       // Interval between reloading a tab, in ms.  Let's not kill other people's servers with automated requests. :)
-      reloadWait_ms: 5 * 60 * 1000,
-      // Does TabCarousel start automatically?
-      automaticStart: false
+      reloadWait_ms: 5 * 60 * 1000
+    },
+
+    initialize: function () {
+      // If the model is changed, save immediately
+      //
+      // See also: http://stackoverflow.com/questions/7461216/how-can-i-bind-this-save-to-a-backbone-js-model-change-event
+      this.on('change', this.save);
     }
   });
 
   var App = function () {
-    var config = new Config();
+    config = new Config();
     // Make sure we have the data from `localStorage`
     config.fetch();
 
     // These are some temporary shims while moving to Backbone.js
     // 
     // Start shim.
-    function attrAccessor(name) {
-      return function (value) {
-        if (1 === arguments.length) {
-          config.set(name, value);
-          config.save();
-        } else {
-          return config.get(name);
-        }
-      }
-    }
-
     ns.defaults = config.defaults;
-    ns.firstRun = attrAccessor('firstRun');
-    ns.flipWait_ms = attrAccessor('flipWait_ms');
-    ns.automaticStart = attrAccessor('automaticStart');
     // End shim.
   };
 
@@ -120,7 +115,7 @@ var TabCarousel = (function () {
       count = 0,
       windowId; // window in which Carousel was started
 
-    if (!ms) { ms = ns.flipWait_ms(); }
+    if (!ms) { ms = config.get('flipWait_ms'); }
     chrome.windows.getCurrent(function (w) { windowId = w.id; });
 
     chrome.browserAction.setIcon({path: 'images/icon_32_exp_1.75_stop_emblem.png'});
@@ -160,7 +155,7 @@ var TabCarousel = (function () {
    */
   ns.tutorial = function () {
     alert(ns.tutorialText);
-    ns.firstRun(false);
+    config.set('firstRun', false);
   };
 
   /**
@@ -170,7 +165,7 @@ var TabCarousel = (function () {
   ns.click = function () {
     var entry, ms, parsed;
 
-    if (ns.firstRun()) { ns.tutorial(); }
+    if (config.get('firstRun')) { ns.tutorial(); }
 
     if (!ns.running()) {
       ns.start();
@@ -187,7 +182,7 @@ var TabCarousel = (function () {
     chrome.browserAction.onClicked.addListener(ns.click);
     chrome.browserAction.setTitle({title: 'Start Carousel'});
 
-    if (ns.automaticStart()) { ns.start(); }
+    if (config.get('automaticStart')) { ns.start(); }
   };
 
   /**
@@ -195,8 +190,8 @@ var TabCarousel = (function () {
    */
   ns.OptionsController = function (form) {
     this.form = form;
-    this.form.flipWait_ms.value = ns.flipWait_ms();
-    this.form.automaticStart.checked = ns.automaticStart();
+    this.form.flipWait_ms.value = config.get('flipWait_ms');
+    this.form.automaticStart.checked = config.get('automaticStart');
     this.form.onsubmit = this.onsubmit;
   };
 
@@ -210,8 +205,8 @@ var TabCarousel = (function () {
 
       $this.find('.alert').hide();
 
-      ns.flipWait_ms(this.flipWait_ms.value);
-      ns.automaticStart(this.automaticStart.checked);
+      config.set('flipWait_ms', this.flipWait_ms.value);
+      config.set('automaticStart', this.automaticStart.checked);
 
       $this.find('.alert-success').show();
 
