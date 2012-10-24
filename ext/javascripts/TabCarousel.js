@@ -20,28 +20,50 @@ var TabCarousel = (function () {
   /** Module @namespace */
   var ns = {};
 
-  /** @constant */
-  ns.defaults = {
-    // Timestamp of first run
-    firstRun: undefined,
-    /** Interval between tabs, in ms. */
-    flipWait_ms: 15 * 1000,
-    /** Interval between reloading a tab, in ms.  Let's not kill other people's servers with automated requests. */
-    reloadWait_ms: 5 * 60 * 1000,
-    // User set automatic start preference
-    automaticStart: false
-  };
-
   var Config = Backbone.Model.extend({
+    localStorage: new Store('TabCarousel-Configuration'),
     id: 'singleton',
-    defaults: ns.defaults,
-    localStorage: new Store('TabCarousel-Configuration')
+
+    defaults: {
+      // Has TabCarousel been run before?
+      firstRun: true,
+      // Interval between switching tabs, in ms.
+      flipWait_ms: 15 * 1000,
+      // Interval between reloading a tab, in ms.  Let's not kill other people's servers with automated requests. :)
+      reloadWait_ms: 5 * 60 * 1000,
+      // Does TabCarousel start automatically?
+      automaticStart: false
+    }
   });
 
-  var config = new Config();
-  // Make sure we have the data from `localStorage`
-  config.fetch();
+  var App = function () {
+    var config = new Config();
+    // Make sure we have the data from `localStorage`
+    config.fetch();
 
+    // These are some temporary shims while moving to Backbone.js
+    // 
+    // Start shim.
+    function attrAccessor(name) {
+      return function (value) {
+        if (1 === arguments.length) {
+          config.set(name, value);
+          config.save();
+        } else {
+          return config.get(name);
+        }
+      }
+    }
+
+    ns.defaults = config.defaults;
+    ns.firstRun = attrAccessor('firstRun');
+    ns.flipWait_ms = attrAccessor('flipWait_ms');
+    ns.automaticStart = attrAccessor('automaticStart');
+    // End shim.
+  };
+
+  new App();
+  
   /** English-language tutorial text for first run. */
   ns.tutorialText = [
     'First-Use Tutorial',
@@ -132,29 +154,13 @@ var TabCarousel = (function () {
     chrome.browserAction.setTitle({title: 'Start Carousel'});
   };
 
-  // Just a temporary shim while moving to Backbone.js
-  function attrAccessor(name) {
-    return function (value) {
-      if (1 === arguments.length) {
-        config.set(name, value);
-        config.save();
-      } else {
-        return config.get(name);
-      }
-    }
-  }
-
-  ns.firstRun = attrAccessor('firstRun');
-  ns.flipWait_ms = attrAccessor('flipWait_ms');
-  ns.automaticStart = attrAccessor('automaticStart');
-
   /**
    * Display the first-run tutorial.
    * @function
    */
   ns.tutorial = function () {
     alert(ns.tutorialText);
-    ns.firstRun(Date.now());
+    ns.firstRun(false);
   };
 
   /**
