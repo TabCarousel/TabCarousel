@@ -10,12 +10,12 @@ describe("localStorage accessors", function() {
       expect(ns.automaticStart()).toBeFalsy();
     });
 
-    it('should give give false if set to true', function () {
+    it('should give give true if set to true', function () {
       ns.automaticStart(true);
       expect(ns.automaticStart()).toBeTruthy();
     });
 
-    it('should give give false if set to any truthy value', function () {
+    it('should give give true if set to any truthy value', function () {
       ns.automaticStart('some string');
       expect(ns.automaticStart()).toBeTruthy();
     });

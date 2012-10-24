@@ -22,11 +22,25 @@ var TabCarousel = (function () {
 
   /** @constant */
   ns.defaults = {
+    // Timestamp of first run
+    firstRun: undefined,
     /** Interval between tabs, in ms. */
     flipWait_ms: 15 * 1000,
     /** Interval between reloading a tab, in ms.  Let's not kill other people's servers with automated requests. */
-    reloadWait_ms: 5 * 60 * 1000
+    reloadWait_ms: 5 * 60 * 1000,
+    // User set automatic start preference
+    automaticStart: false
   };
+
+  var Config = Backbone.Model.extend({
+    id: 'singleton',
+    defaults: ns.defaults,
+    localStorage: new Store('TabCarousel-Configuration')
+  });
+
+  var config = new Config();
+  // Make sure we have the data from `localStorage`
+  config.fetch();
 
   /** English-language tutorial text for first run. */
   ns.tutorialText = [
@@ -118,43 +132,21 @@ var TabCarousel = (function () {
     chrome.browserAction.setTitle({title: 'Start Carousel'});
   };
 
-  /**
-   * Accessor for first run timestamp.
-   * @function
-   */
-  ns.firstRun = function (value) {
-    if (value) {
-      localStorage['firstRun'] = value;
-    } else {
-      return !localStorage['firstRun'];
-    }
-  };
-
-  /**
-   * Accessor for user set flip wait timing or the default.
-   * @function
-   */
-  ns.flipWait_ms = function (ms) {
-    if (ms) {
-      localStorage['flipWait_ms'] = ms;
-    } else {
-      return localStorage['flipWait_ms'] || ns.defaults.flipWait_ms;
-    }
-  };
-
-  /**
-   * Accessor for user set automatic start preference.
-   * @function
-   */
-  ns.automaticStart = function (value) {
-    if (1 === arguments.length) {
-      localStorage['automaticStart'] = !!value;
-    } else {
-      if (localStorage['automaticStart']) {
-        return JSON.parse(localStorage['automaticStart']);
+  // Just a temporary shim while moving to Backbone.js
+  function attrAccessor(name) {
+    return function (value) {
+      if (1 === arguments.length) {
+        config.set(name, value);
+        config.save();
+      } else {
+        return config.get(name);
       }
     }
-  };
+  }
+
+  ns.firstRun = attrAccessor('firstRun');
+  ns.flipWait_ms = attrAccessor('flipWait_ms');
+  ns.automaticStart = attrAccessor('automaticStart');
 
   /**
    * Display the first-run tutorial.
@@ -207,7 +199,7 @@ var TabCarousel = (function () {
      * Save callback for Options form.  Keep in mind "this" is the form, not the controller.
      * @function
      */
-    onsubmit: function () {
+    onsubmit: function (e) {
       var $this = $(this)
 
       $this.find('.alert').hide();
