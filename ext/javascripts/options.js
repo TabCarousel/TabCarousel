@@ -1,4 +1,4 @@
 $(function () {
-  carousel.components.init();
-  new carousel.OptionsController(document.forms['options']);
+  TabCarousel.components.init();
+  new TabCarousel.OptionsController(document.forms['options']);
 });

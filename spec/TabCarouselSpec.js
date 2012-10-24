@@ -1,5 +1,5 @@
 describe("localStorage accessors", function() {
-  var ns = carousel;
+  var ns = TabCarousel;
 
   beforeEach(function () {
     localStorage.clear();

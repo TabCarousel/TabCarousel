@@ -1,10 +1,12 @@
 /**
- * Chrome plugin to cycle through tabs.
+ * TabCarousel
+ *
+ * A Chrome extension to cycle through tabs.
  * 
  * @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
  */
-var carousel = (function () {
+var TabCarousel = (function () {
   /** Module @namespace */
   var ns = {};
 
@@ -212,7 +214,7 @@ var carousel = (function () {
   return ns;
 }());
 
-carousel.components = (function () {
+TabCarousel.components = (function () {
   // Hide the parent element.  Useful for "close" buttons.
   //
   // Unlike the built-in behavior for Bootstrap close buttons, this does **not** delete the content; it just hides it.

@@ -1,1 +1,1 @@
-carousel.load();
+TabCarousel.load();
