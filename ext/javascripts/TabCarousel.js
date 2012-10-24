@@ -16,12 +16,11 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-var TabCarousel = (function () {
-  var config;
 
-  /** Module @namespace */
-  var ns = {};
+// Namespace
+var TabCarousel = {};
 
+(function () {
   var Config = Backbone.Model.extend({
     localStorage: new Store('TabCarousel-Configuration'),
     id: 'singleton',
@@ -45,19 +44,16 @@ var TabCarousel = (function () {
     }
   });
 
-  var App = function () {
-    config = new Config();
-    // Make sure we have the data from `localStorage`
-    config.fetch();
+  var config = new Config();
+  // Make sure we have the data from `localStorage`
+  config.fetch();
 
-    // These are some temporary shims while moving to Backbone.js
-    // 
-    // Start shim.
-    ns.defaults = config.defaults;
-    // End shim.
-  };
-
-  new App();
+  // These are some temporary shims while moving to Backbone.js
+  // 
+  // Start shim.
+  this.defaults = config.defaults;
+  var ns = this;
+  // End shim.
   
   /** English-language tutorial text for first run. */
   ns.tutorialText = [
@@ -213,11 +209,9 @@ var TabCarousel = (function () {
       return false;
     }
   };
+}.call(TabCarousel));
 
-  return ns;
-}());
-
-TabCarousel.components = (function () {
+(function () {
   // Hide the parent element.  Useful for "close" buttons.
   //
   // Unlike the built-in behavior for Bootstrap close buttons, this does **not** delete the content; it just hides it.
@@ -225,9 +219,9 @@ TabCarousel.components = (function () {
     $(this).parent().hide();
   }
 
-  return {
+  this.components = {
     init: function () {
       $('.close.hide-parent').click(hideParent);
     }
   };
-}());
+}.call(TabCarousel));
