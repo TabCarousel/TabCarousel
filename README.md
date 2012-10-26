@@ -18,14 +18,11 @@ Buzz
 
 ### From Twitter
 
-#### [@flaneur](http://twitter.com/flaneur) 
-> Putting stats on a monitor; the TabCarousel Chrome extension is just the ticket
-> [10 Oct](http://twitter.com/flaneur/status/123363018754097152) 
+<blockquote class="twitter-tweet"><p>Putting stats on a monitor; the TabCarousel Chrome extension is just the ticket <a href="http://t.co/5tkceGGq" title="https://chrome.google.com/webstore/detail/ddldimidiliclngjipajmjjiakhbcohn">chrome.google.com/webstore/detai…</a></p>&mdash; Matthew Ogle (@flaneur) <a href="https://twitter.com/flaneur/status/123363018754097152" data-datetime="2011-10-10T11:43:30+00:00">October 10, 2011</a></blockquote>
 
-#### [@triiimit](https://twitter.com/triiimit)
-> Easy corporate/dept. dashboard: big TV w/PC, @gooddata reports in separate Chrome tabs, run TabCarousel, hit F11 for full screen. Voilà!
-> [21 Sep](https://twitter.com/triiimit/status/116522506361376768)
+<blockquote class="twitter-tweet"><p>Easy corporate/dept. dashboard: big TV w/PC, @<a href="https://twitter.com/gooddata">gooddata</a> reports in separate Chrome tabs, run TabCarousel, hit F11 for full screen. Voilà!</p>&mdash; Tom Russell (@triiimit) <a href="https://twitter.com/triiimit/status/116522506361376768" data-datetime="2011-09-21T14:41:45+00:00">September 21, 2011</a></blockquote>
 
+<blockquote class="twitter-tweet"><p>Cicla tabs de Chrome automáticamente. Muy útil para Big TV Screens. <a href="https://t.co/ouAAej2w" title="https://chrome.google.com/webstore/detail/tabcarousel/ddldimidiliclngjipajmjjiakhbcohn">chrome.google.com/webstore/detai…</a></p>&mdash; Fernando Zunino (@fzunino) <a href="https://twitter.com/fzunino/status/260526980913582080" data-datetime="2012-10-22T23:44:07+00:00">October 22, 2012</a></blockquote>
 
 Installing
 ----------
