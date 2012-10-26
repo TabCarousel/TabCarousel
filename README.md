@@ -24,6 +24,10 @@ Buzz
 
 <blockquote class="twitter-tweet"><p>Cicla tabs de Chrome automáticamente. Muy útil para Big TV Screens. <a href="https://t.co/ouAAej2w" title="https://chrome.google.com/webstore/detail/tabcarousel/ddldimidiliclngjipajmjjiakhbcohn">chrome.google.com/webstore/detai…</a></p>&mdash; Fernando Zunino (@fzunino) <a href="https://twitter.com/fzunino/status/260526980913582080" data-datetime="2012-10-22T23:44:07+00:00">October 22, 2012</a></blockquote>
 
+### From blogs
+
+[Steve Holden's Blog: Ambient Information Display with Google Chrome](http://sholden.typepad.com/weblog/2011/10/ambient-information-display-with-google-chrome.html)
+
 Installing
 ----------
 
