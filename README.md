@@ -26,8 +26,9 @@ Buzz
 
 ### From blogs
 
-* [Jim Remsik : Dead-simple (Office Monitor) Dashboard](https://coderwall.com/p/iqubqa)
-* [Steve Holden's Blog: Ambient Information Display with Google Chrome](http://sholden.typepad.com/weblog/2011/10/ambient-information-display-with-google-chrome.html)
+* [Boris Masis: Setting up a stats/metrics display](http://borism.net/2012/12/04/setting-up-a-statsmetrics-display/)
+* [Jim Remsik: Dead-simple (Office Monitor) Dashboard](https://coderwall.com/p/iqubqa)
+* [Steve Holden: Ambient Information Display with Google Chrome](http://sholden.typepad.com/weblog/2011/10/ambient-information-display-with-google-chrome.html)
 
 Installing
 ----------
