@@ -26,7 +26,8 @@ Buzz
 
 ### From blogs
 
-[Steve Holden's Blog: Ambient Information Display with Google Chrome](http://sholden.typepad.com/weblog/2011/10/ambient-information-display-with-google-chrome.html)
+* [Jim Remsik : Dead-simple (Office Monitor) Dashboard](https://coderwall.com/p/iqubqa)
+* [Steve Holden's Blog: Ambient Information Display with Google Chrome](http://sholden.typepad.com/weblog/2011/10/ambient-information-display-with-google-chrome.html)
 
 Installing
 ----------
