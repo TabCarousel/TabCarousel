@@ -24,6 +24,8 @@ Buzz
 
 <blockquote class="twitter-tweet"><p>Cicla tabs de Chrome automáticamente. Muy útil para Big TV Screens. <a href="https://t.co/ouAAej2w" title="https://chrome.google.com/webstore/detail/tabcarousel/ddldimidiliclngjipajmjjiakhbcohn">chrome.google.com/webstore/detai…</a></p>&mdash; Fernando Zunino (@fzunino) <a href="https://twitter.com/fzunino/status/260526980913582080" data-datetime="2012-10-22T23:44:07+00:00">October 22, 2012</a></blockquote>
 
+<blockquote class="twitter-tweet"><p>Thanks to @<a href="https://twitter.com/benjaminoakes">benjaminoakes</a> for TabCarousel. Just setup on the @<a href="https://twitter.com/newrelic">newrelic</a> agent team dashboard! <a href="https://t.co/sWVa9gRgw3" title="https://chrome.google.com/webstore/detail/tabcarousel/ddldimidiliclngjipajmjjiakhbcohn?hl=en">chrome.google.com/webstore/detai…</a></p>&mdash; Darin Swanson (@darinrs) - <em>NewRelic Director of Engineering</em> <a href="https://twitter.com/darinrs/status/304367585653321728">February 20, 2013</a></blockquote>
+
 ### From blogs
 
 * [Boris Masis: Setting up a stats/metrics display](http://borism.net/2012/12/04/setting-up-a-statsmetrics-display/)
