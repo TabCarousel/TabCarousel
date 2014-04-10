@@ -15,12 +15,15 @@ th {
 </head>
 <body>
 <h1>TabCarousel Options</h1>
-
 <form id="options">
 <table>
 <tr>
-<th><label for="flipWait_ms">Flip Wait (ms):</label></th>
-<td><input atuofocus id="flipWait_ms" name="flipWait_ms" type="number" min="1000" step="1000" /></td>
+<th><label for="flipWait_ms">Flip Wait (sec):</label></th>
+<td><input atuofocus id="flipWait_ms" name="flipWait_ms" type="number" min="1" step="1" /></td>
+</tr>
+<tr>
+<th><label for="reloadWait_ms">Reload Wait (min):</label></th>
+<td><input atuofocus id="reloadWait_ms" name="reloadWait_ms" type="number" min="1" step="1" /></td>
 </tr>
 <tr>
 <th><label for="automaticStart">Start automatically:</label></th>
