@@ -40,7 +40,7 @@ var carousel = (function () {
     var now_ms = Date.now(),
       lastReload_ms = ns.lastReloads_ms[tabId];
     
-    if (!lastReload_ms || (now_ms - lastReload_ms >= ns.defaults.reloadWait_ms)) {
+    if (!lastReload_ms || (now_ms - lastReload_ms >= ns.reloadWait_ms())) {
       // If a tab fails reloading, the host shows up as chrome://chromewebdata/
       // Protocol chrome:// URLs can't be reloaded through script injection, but you can simulate a reload using tabs.update.
       chrome.tabs.get(tabId, function (t) { chrome.tabs.update(tabId, {url: t.url}) });
@@ -59,6 +59,7 @@ var carousel = (function () {
       var tab = tabs[count % tabs.length],
         nextTab = tabs[(count + 1) % tabs.length];
       chrome.tabs.update(tab.id, {selected: true});
+      // checks and reloads the next tab
       ns.reload(nextTab.id);
     });
   };
@@ -131,6 +132,18 @@ var carousel = (function () {
   };
 
   /**
+   * Accessor for user set reload wait timing or the default.
+   * @function
+   */
+  ns.reloadWait_ms = function (ms) {
+    if (ms) {
+      localStorage['reloadWait_ms'] = ms;
+    } else {
+      return localStorage['reloadWait_ms'] || ns.defaults.reloadWait_ms;
+    }
+  };
+  
+  /**
    * Accessor for user set automatic start preference.
    * @function
    */
@@ -185,7 +198,8 @@ var carousel = (function () {
    */
   ns.OptionsController = function (form) {
     this.form = form;
-    this.form.flipWait_ms.value = ns.flipWait_ms();
+    this.form.flipWait_ms.value = ns.flipWait_ms() / 1000;
+    this.form.reloadWait_ms.value = ns.reloadWait_ms() / 60 / 1000;
     this.form.automaticStart.checked = ns.automaticStart();
     this.form.onsubmit = this.onsubmit;
   };
@@ -199,7 +213,8 @@ var carousel = (function () {
       var status = document.getElementById('status');
       status.innerHTML = '';
 
-      ns.flipWait_ms(this.flipWait_ms.value);
+      ns.flipWait_ms(this.flipWait_ms.value * 1000);
+      ns.reloadWait_ms(this.reloadWait_ms.value * 60 * 1000);
       ns.automaticStart(this.automaticStart.checked);
 
       // So the user sees a blink when saving values multiple times without leaving the page.
