@@ -15,8 +15,8 @@ product = File.join('pkg', crx_name)
 # and observe one is created for you. You'll need that to publish updates to the store.
 # Read more: https://developer.chrome.com/extensions/packaging
 
-if (!File.exists?("~/.chrome/"))
-  STDERR.puts("Missing ~/.chrome/ with this extension's .pem - aborting!")
+if (!File.exists?(File.expand_path "~/.chrome/#{name}.pem"))
+  STDERR.puts("Missing ~/.chrome/ or ~/.chrome/#{name}.pem with this extension's .pem - aborting!")
   exit(1)
 end
 
@@ -24,7 +24,13 @@ end
 FileUtils.move('ext.crx', product)
 puts "Built #{product.inspect}"
 
+if (!File.exists? "updates.xml") 
+  STDERR.puts("Missing updates.xml - aborting")
+  exit(1)
+end
+
 updates = File.read('updates.xml')
 updates.gsub!(/\d\.\d\.\d/, version)
 File.open('updates.xml', 'w') { |f| f.puts updates }
 puts 'Updated "updates.xml"'
+
