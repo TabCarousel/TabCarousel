@@ -1,20 +1,36 @@
 #!/usr/bin/env ruby
 require 'fileutils'
-require 'yaml'
+require 'json'
 
-manifest = YAML.parse(File.read('ext/manifest.json'))
-name = manifest['name'].value
-version = manifest['version'].value
+manifest = JSON.parse(File.read('ext/manifest.json'))
+name = manifest['name']
+version = manifest['version']
 crx_name = "#{name}-#{version}.crx"
 
 FileUtils.mkdir_p('pkg')
 product = File.join('pkg', crx_name)
 
+# Note: $HOME/.chrome/ may not exist.
+# You need to make it the first time you pack the extension (omit the --pack-extension-key)
+# and observe one is created for you. You'll need that to publish updates to the store.
+# Read more: https://developer.chrome.com/extensions/packaging
+
+if (!File.exists?(File.expand_path "~/.chrome/#{name}.pem"))
+  STDERR.puts("Missing ~/.chrome/ or ~/.chrome/#{name}.pem with this extension's .pem - aborting!")
+  exit(1)
+end
+
 `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --pack-extension=ext --pack-extension-key="$HOME/.chrome/#{name}.pem"`
 FileUtils.move('ext.crx', product)
 puts "Built #{product.inspect}"
+
+if (!File.exists? "updates.xml") 
+  STDERR.puts("Missing updates.xml - aborting")
+  exit(1)
+end
 
 updates = File.read('updates.xml')
 updates.gsub!(/\d\.\d\.\d/, version)
 File.open('updates.xml', 'w') { |f| f.puts updates }
 puts 'Updated "updates.xml"'
+
