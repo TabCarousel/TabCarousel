@@ -13,7 +13,9 @@ var carousel = (function () {
     /** Interval between tabs, in ms. */
     flipWait_ms: 15 * 1000,
     /** Interval between reloading a tab, in ms.  Let's not kill other people's servers with automated requests. */
-    reloadWait_ms: 5 * 60 * 1000
+    reloadWait_ms: 5 * 60 * 1000,
+    /** Pause when active? */
+    pauseWhenActive: true
   };
 
   /** English-language tutorial text for first run. */
@@ -80,8 +82,12 @@ var carousel = (function () {
     chrome.browserAction.setTitle({title: 'Stop Carousel'});
 
     continuation = function () {
-      ns.select(windowId, count);
-      count += 1;
+      chrome.idle.queryState(15, function(newState) {
+	  if (newState == "idle" || !ns.pauseWhenActive()) {
+	      ns.select(windowId, count);
+	      count += 1;
+	  }
+      });
       ns.lastTimeout = setTimeout(continuation, ms);
     };
 
@@ -158,6 +164,21 @@ var carousel = (function () {
   };
 
   /**
+   * Accessor for user set pause when idle or the default.
+   * @function
+   */
+  ns.pauseWhenActive = function (value) {
+    if (1 === arguments.length) {
+      localStorage['pauseWhenActive'] = !!value;
+    } else {
+      if (localStorage['pauseWhenActive']) {
+        return JSON.parse(localStorage['pauseWhenActive']);
+      }
+      return ns.defaults.pauseWhenActive;
+    }
+  };
+
+  /**
    * Display the first-run tutorial.
    * @function
    */
@@ -201,6 +222,7 @@ var carousel = (function () {
     this.form.flipWait_ms.value = ns.flipWait_ms() / 1000;
     this.form.reloadWait_ms.value = ns.reloadWait_ms() / 60 / 1000;
     this.form.automaticStart.checked = ns.automaticStart();
+    this.form.pauseWhenActive.checked = ns.pauseWhenActive();
     this.form.onsubmit = this.onsubmit;
   };
 
@@ -216,6 +238,7 @@ var carousel = (function () {
       ns.flipWait_ms(this.flipWait_ms.value * 1000);
       ns.reloadWait_ms(this.reloadWait_ms.value * 60 * 1000);
       ns.automaticStart(this.automaticStart.checked);
+      ns.pauseWhenActive(this.pauseWhenActive.checked);
 
       // So the user sees a blink when saving values multiple times without leaving the page.
       setTimeout(function () {
