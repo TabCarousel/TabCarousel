@@ -115,7 +115,10 @@ var carousel = (function () {
       continuation();
     }
 
-    chrome.browserAction.setIcon({path: 'images/icon_32_exp_1.75_stop_emblem.png'});
+    if (chrome.browserAction.setIcon) {
+      // Not Firefox for Android
+      chrome.browserAction.setIcon({path: 'images/icon_32_exp_1.75_stop_emblem.png'});
+    }
     chrome.browserAction.setTitle({title: 'Stop Carousel'});
   };
 
@@ -134,7 +137,10 @@ var carousel = (function () {
   ns.stop = function () {
     clearTimeout(ns.lastTimeout);
     ns.lastTimeout = undefined;
-    chrome.browserAction.setIcon({path: 'images/icon_32.png'});
+    if (chrome.browserAction.setIcon) {
+      // Not Firefox for Android
+      chrome.browserAction.setIcon({path: 'images/icon_32.png'});
+    }
     chrome.browserAction.setTitle({title: 'Start Carousel'});
   };
 
