@@ -28,5 +28,11 @@
   "permissions": [
       "idle",
     "tabs"
-  ]
+  ],
+
+  "applications": {
+    "gecko": {
+      "id": "TabCarousel@benjaminoakes.com"
+    }
+  }
 }

@@ -82,8 +82,25 @@ var carousel = (function () {
       windowId; // window in which Carousel was started
 
     if (!ms) { ms = ns.flipWait_ms(); }
-    chrome.windows.getCurrent(function (w) {
-      windowId = w.id;
+
+    if (chrome.windows) {
+      chrome.windows.getCurrent(function (w) {
+        windowId = w.id;
+
+        continuation = function () {
+          // chrome.idle.queryState(15, function(newState) {
+          // if (newState == "idle" || !ns.pauseWhenActive()) {
+            ns.select(windowId, count);
+            count += 1;
+        // }
+          // });
+          ns.lastTimeout = setTimeout(continuation, ms);
+        };
+
+        continuation();
+      });
+    } else {
+      // Android
 
       continuation = function () {
         // chrome.idle.queryState(15, function(newState) {
@@ -96,7 +113,7 @@ var carousel = (function () {
       };
 
       continuation();
-    });
+    }
 
     chrome.browserAction.setIcon({path: 'images/icon_32_exp_1.75_stop_emblem.png'});
     chrome.browserAction.setTitle({title: 'Stop Carousel'});
