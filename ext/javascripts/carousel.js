@@ -1,6 +1,6 @@
 /**
  * Chrome plugin to cycle through tabs.
- * 
+ *
  * @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
  */
@@ -41,7 +41,7 @@ var carousel = (function () {
   ns.reload = function (tabId) {
     var now_ms = Date.now(),
       lastReload_ms = ns.lastReloads_ms[tabId];
-    
+
     if (!lastReload_ms || (now_ms - lastReload_ms >= ns.reloadWait_ms())) {
       // If a tab fails reloading, the host shows up as chrome://chromewebdata/
       // Protocol chrome:// URLs can't be reloaded through script injection, but you can simulate a reload using tabs.update.
@@ -57,13 +57,19 @@ var carousel = (function () {
    * @seealso http://code.google.com/chrome/extensions/content_scripts.html#pi
    */
   ns.select = function (windowId, count) {
-    chrome.tabs.getAllInWindow(windowId, function (tabs) {
-      var tab = tabs[count % tabs.length],
-        nextTab = tabs[(count + 1) % tabs.length];
-      chrome.tabs.update(tab.id, {selected: true});
-      // checks and reloads the next tab
-      ns.reload(nextTab.id);
-    });
+    browser.
+      tabs.
+      query({ windowId: windowId }).
+      then(
+        function (tabs) {
+          var tab = tabs[count % tabs.length],
+            nextTab = tabs[(count + 1) % tabs.length];
+            chrome.tabs.update(tab.id, {active: true});
+            // checks and reloads the next tab
+            ns.reload(nextTab.id);
+        },
+        function (error) { console.error(error) }
+      );
   };
 
   /**
@@ -76,22 +82,24 @@ var carousel = (function () {
       windowId; // window in which Carousel was started
 
     if (!ms) { ms = ns.flipWait_ms(); }
-    chrome.windows.getCurrent(function (w) { windowId = w.id; });
+    chrome.windows.getCurrent(function (w) {
+      windowId = w.id;
+
+      continuation = function () {
+        // chrome.idle.queryState(15, function(newState) {
+        // if (newState == "idle" || !ns.pauseWhenActive()) {
+          ns.select(windowId, count);
+          count += 1;
+      // }
+        // });
+        ns.lastTimeout = setTimeout(continuation, ms);
+      };
+
+      continuation();
+    });
 
     chrome.browserAction.setIcon({path: 'images/icon_32_exp_1.75_stop_emblem.png'});
     chrome.browserAction.setTitle({title: 'Stop Carousel'});
-
-    continuation = function () {
-      chrome.idle.queryState(15, function(newState) {
-	  if (newState == "idle" || !ns.pauseWhenActive()) {
-	      ns.select(windowId, count);
-	      count += 1;
-	  }
-      });
-      ns.lastTimeout = setTimeout(continuation, ms);
-    };
-
-    continuation();
   };
 
   /**
@@ -148,7 +156,7 @@ var carousel = (function () {
       return localStorage['reloadWait_ms'] || ns.defaults.reloadWait_ms;
     }
   };
-  
+
   /**
    * Accessor for user set automatic start preference.
    * @function

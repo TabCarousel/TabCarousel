@@ -17,7 +17,9 @@
     "page": "background.html"
   },
 
-  "options_page": "options.html",
+  "options_ui": {
+    "page": "options.html"
+  },
 
   "browser_action": {
     "default_icon": "images/icon_32.png"
