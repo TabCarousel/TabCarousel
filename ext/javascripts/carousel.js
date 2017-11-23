@@ -208,7 +208,8 @@ var carousel = (function () {
    * @function
    */
   ns.tutorial = function () {
-    alert(ns.tutorialText);
+    // alert(ns.tutorialText);
+    console.log(ns.tutorialText);
     ns.firstRun(Date.now());
   };
 
