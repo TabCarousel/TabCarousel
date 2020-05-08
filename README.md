@@ -11,8 +11,6 @@ Want to support development of TabCarousel?  Please consider [making a micro-don
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=benjaminoakes&url=https://github.com/benjaminoakes/TabCarousel&title=TabCarousel&language=en_GB&tags=github&category=software)
 
-[![Maintenance Status](http://stillmaintained.com/benjaminoakes/TabCarousel.png)](http://stillmaintained.com/benjaminoakes/TabCarousel)
-
 Buzz
 ----
 
