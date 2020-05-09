@@ -41,9 +41,7 @@ var carousel = (function () {
       lastReload_ms = ns.lastReloads_ms[tabId];
     
     if (!lastReload_ms || (now_ms - lastReload_ms >= ns.defaults.reloadWait_ms)) {
-      // If a tab fails reloading, the host shows up as chrome://chromewebdata/
-      // Protocol chrome:// URLs can't be reloaded through script injection, but you can simulate a reload using tabs.update.
-      chrome.tabs.get(tabId, function (t) { chrome.tabs.update(tabId, {url: t.url}) });
+      chrome.tabs.reload(tabId);
       ns.lastReloads_ms[tabId] = now_ms;
     }
   };
