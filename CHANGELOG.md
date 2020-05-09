@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+0.5.4
+-----
+
+* Reduce requested permissions for User Data Privacy section of Chrome Web Store Program Policy
+
 0.5.3
 -----
 
