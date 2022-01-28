@@ -44,6 +44,14 @@ class Options
       if localStorage.automaticStart
         JSON.parse(localStorage.automaticStart)
 
+    # Accessor for user set disable refresh preference.
+  automaticStart: (value) ->
+    if 1 == arguments.length
+      localStorage.disableReload = !!value
+    else
+      if localStorage.disableReload
+        JSON.parse(localStorage.disableReload)
+
 # @constant
 Options.defaults =
   # Interval between tabs, in ms.
@@ -59,6 +67,7 @@ class OptionsController
     @form = form
     @form.flipWait_ms.value = options.flipWait_ms()
     @form.automaticStart.checked = options.automaticStart()
+    @form.disableReload.checked = options.disableReload()
     @form.onsubmit = @onsubmit
 
   # Save callback for Options form.  Keep in mind "this" is the form, not the controller.
@@ -68,6 +77,7 @@ class OptionsController
 
     options.flipWait_ms(@flipWait_ms.value)
     options.automaticStart(@automaticStart.value)
+    options.disableReload(@disableReload.value)
 
     # So the user sees a blink when saving values multiple times without leaving the page.
     setTimeout(->
@@ -105,7 +115,8 @@ class Carousel
       tab = tabs[count % tabs.length]
       nextTab = tabs[(count + 1) % tabs.length]
       chrome.tabs.update(tab.id, selected: true)
-      @reload(nextTab.id)
+      if options.disableReload()
+        @reload(nextTab.id)
   
   # Put the carousel into motion.
   start: (ms) ->
