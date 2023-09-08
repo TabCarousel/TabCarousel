@@ -1,6 +1,8 @@
 TabCarousel
 ===========
 
+**Additional maintainer wanted.**  Please reach out in a GitHub Issue if you are interested in helping out!
+
 by [Benjamin Oakes](http://www.benjaminoakes.com/)
 
 A Chrome extension to help you keep tabs on info you want to monitor.  It's great for cycling through tabs on an external display, like a TV.
