@@ -7,3 +7,5 @@ Thumbs.db
 
 ## PROJECT::SPECIFIC
 pkg/
+ext/
+node_modules/
