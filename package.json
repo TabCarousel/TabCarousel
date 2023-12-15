@@ -1,5 +1,23 @@
 {
+  "type": "module",
   "dependencies": {
     "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "del": "^7.1.0",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-cleanhtml": "^1.0.3",
+    "gulp-jshint": "^2.1.0",
+    "gulp-merge-json": "^2.1.2",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-strip-debug": "^6.0.0",
+    "gulp-uglify": "^3.0.2",
+    "gulp-zip": "^6.0.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1",
+    "webpack-stream": "^7.0.0",
+    "yargs": "^17.7.2"
   }
 }

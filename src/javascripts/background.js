@@ -6,12 +6,6 @@
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
  */
 
-const LS = {
-    getAllItems: () => chrome.storage.local.get(),
-    getItem: async key => (await chrome.storage.local.get(key))[key],
-    setItem: (key, val) => chrome.storage.local.set({ [key]: val }),
-    removeItems: keys => chrome.storage.local.remove(keys),
-};
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
@@ -19,13 +13,7 @@ chrome.runtime.onMessage.addListener(
             let options = request.options;
             // Do something with options.flipWait_ms and options.automaticStart
             // For example, save them in chrome.storage
-            chrome.storage.local.set({ flipWait_ms: options.flipWait_ms, automaticStart: options.automaticStart }, function () {
-                if (chrome.runtime.lastError) {
-                    sendResponse({ status: 'error', message: chrome.runtime.lastError.message });
-                } else {
-                    sendResponse({ status: 'Saved.' });
-                }
-            });
+            
             return true;  // Will respond asynchronously.
         }
     }
@@ -34,11 +22,6 @@ chrome.runtime.onMessage.addListener(
 
 class Carousel {
     constructor() {
-        this.defaults = {
-            flipWait_ms: 15 * 1000,
-            reloadWait_ms: 5 * 60 * 1000
-        };
-
         this.tutorialText = [
             'First-Use Tutorial',
             '',
@@ -57,7 +40,7 @@ class Carousel {
         const now_ms = Date.now();
         const lastReload_ms = this.lastReloads_ms[tabId];
 
-        if (!lastReload_ms || (now_ms - lastReload_ms >= this.defaults.reloadWait_ms)) {
+        if (!lastReload_ms || (now_ms - lastReload_ms >= defaults.reloadWait_ms)) {
             chrome.tabs.reload(tabId);
             this.lastReloads_ms[tabId] = now_ms;
         }
@@ -72,7 +55,7 @@ class Carousel {
         });
     }
 
-    start(ms) {
+    start() {
         let count = 0;
         let windowId;
 
@@ -102,34 +85,19 @@ class Carousel {
         chrome.browserAction.setTitle({ title: 'Start Carousel' });
     }
 
-    firstRun(value) {
-        if (value) {
-            localStorage['firstRun'] = value;
-        } else {
-            return !localStorage['firstRun'];
-        }
+    firstRun() {
+        return !LS.getItem('firstRun');
     }
 
-    flipWait_ms(ms) {
-        if (ms) {
-            LS.setItem('flipWait_ms', ms);
-            //localStorage['flipWait_ms'] = ms;
-        } else {
-            return LS.getItem('flipWait_ms') || this.defaults.flipWait_ms;
-            //return localStorage['flipWait_ms'] || this.defaults.flipWait_ms;
-        }
+    flipWait_ms() {
+            return LS.getItem('flipWait_ms') || defaults.flipWait_ms;
     }
 
-    automaticStart(value) {
-        if (1 === arguments.length) {
-            LS.setItem('automaticStart', !!value);
-            //localStorage['automaticStart'] = !!value;
-        } else {
+    automaticStart() {
             const automaticStart = LS.getItem('automaticStart');
             if (automaticStart !== undefined) {
                 return JSON.parse(automaticStart);
             }
-        }
     }
 
     tutorial() {

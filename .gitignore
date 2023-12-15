@@ -9,3 +9,4 @@ Thumbs.db
 pkg/
 ext/
 node_modules/
+dist/
