@@ -3,13 +3,15 @@
 const path = require("path")
 
 module.exports = {
+
+    mode: "development", 
     entry: {
-        serviceWorker: './src/javascripts/background.js',
+        background: './src/javascripts/background.js',
         options: './src/javascripts/options.js',
     },
     output: {
         filename: "[name].min.js",
-        path: path.resolve(__dirname, "js"),
+        path: path.resolve(__dirname, "dist/javascripts"),
     },
     module: {
         rules: [

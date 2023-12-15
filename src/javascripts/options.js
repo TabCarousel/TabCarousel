@@ -1,4 +1,4 @@
-import LS from "./shared.js";
+import {LS} from "./shared.js";
 
 
 function saveOptions() {

@@ -6,6 +6,8 @@
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
  */
 
+import {LS} from "./shared.js";
+import {defaults} from "./shared.js";
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
