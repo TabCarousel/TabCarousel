@@ -1,19 +1,18 @@
-import {LS} from "./shared.js";
-
+import { LS } from "./shared.js";
+import { defaults } from "./shared.js";
 
 function saveOptions() {
 
-    // LS.setItem({ flipWait_ms: options.flipWait_ms, automaticStart: options.automaticStart }, function () {
-    //     if (chrome.runtime.lastError) {
-    //         sendResponse({ status: 'error', message: chrome.runtime.lastError.message });
-    //     } else {
-    //         sendResponse({ status: 'Saved.' });
-    //     }
-    // });
-
+    const options = {
+        flipWait_ms: document.getElementById("flipWait_ms").value,
+        automaticStart: document.getElementById("automaticStart").checked
+    };
+    console.log(options);
     LS.setItem("flipWait_ms", options.flipWait_ms);
     LS.setItem("automaticStart", options.automaticStart);
     document.getElementById("status").innerHTML = "Saved.";
+
+    // Send message for background.js to update its options
 
     // chrome.runtime.sendMessage({
     //     action: "setOptions",
@@ -29,8 +28,12 @@ function saveOptions() {
 }
 
 document.getElementById("save").onclick = saveOptions;
+const flipWait_ms = await LS.getItem("flipWait_ms") || defaults.flipWait_ms;
+document.getElementById("flipWait_ms").value = flipWait_ms;
 
-chrome.storage.local.get(["flipWait_ms", "automaticStart"], function (result) {
-    document.getElementById("flipWait_ms").value = result.flipWait_ms;
-    document.getElementById("automaticStart").checked = result.automaticStart;
-});
+const automaticStart = await LS.getItem("automaticStart");
+if (automaticStart === undefined) {
+    automaticStart = defaults.automaticStart;
+}
+document.getElementById("automaticStart").checked = automaticStart;
+

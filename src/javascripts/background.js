@@ -13,8 +13,6 @@ chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.action === "setOptions") {
             let options = request.options;
-            // Do something with options.flipWait_ms and options.automaticStart
-            // For example, save them in chrome.storage
             
             return true;  // Will respond asynchronously.
         }
@@ -29,7 +27,7 @@ class Carousel {
             '',
             'TabCarousel is simple:  open tabs you want to monitor throughout the day, then click the toolbar icon.  To stop, click the icon again.',
             '',
-            `By default, TabCarousel will flip through your tabs every ${this.defaults.flipWait_ms / 1000} s, reloading them every ${this.defaults.reloadWait_ms / 1000 / 60} min.  It's great on a unused display or TV.  Put Chrome in full-screen mode (F11, or cmd-shift-f on the Mac) and let it go.`,
+            `By default, TabCarousel will flip through your tabs every ${this.flipWait_ms() / 1000} s, reloading them every ${this.reloadWait_ms() / 1000 / 60} min.  It's great on a unused display or TV.  Put Chrome in full-screen mode (F11, or cmd-shift-f on the Mac) and let it go.`,
             '',
             'If you want to change how often TabCarousel flips through your tabs, right click on the toolbar icon and choose "Options".'
         ].join('\n');
@@ -93,6 +91,10 @@ class Carousel {
 
     flipWait_ms() {
             return LS.getItem('flipWait_ms') || defaults.flipWait_ms;
+    }
+
+    reloadWait_ms() {   
+        return LS.getItem('reloadWait_ms') || defaults.reloadWait_ms;
     }
 
     automaticStart() {
