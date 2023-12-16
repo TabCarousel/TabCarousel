@@ -10,29 +10,16 @@ import { LS } from './shared.js';
 import { defaults } from './shared.js';
 import { constants } from './shared.js';
 
-
-// chrome.runtime.onMessage.addListener(
-//     function (request, sender, sendResponse) {
-//         if (request.action === 'setOptions') {
-//             let options = request.options;
-
-//             return true;  // Will respond asynchronously.
-//         }
-//     }
-// );
+chrome.runtime.onInstalled.addListener(({reason}) => {
+    if (reason === 'install') {
+        chrome.tabs.create({
+            url: 'onboarding.html'
+        });
+    }
+});
 
 class Carousel {
     constructor() {
-        this.tutorialText = [
-            'First-Use Tutorial',
-            '',
-            'TabCarousel is simple:  open tabs you want to monitor throughout the day, then click the toolbar icon.  To stop, click the icon again.',
-            '',
-            `By default, TabCarousel will flip through your tabs every ${this.flipWait_ms() / 1000} s, reloading them every ${this.reloadWait_ms() / 1000 / 60} min.  It's great on a unused display or TV.  Put Chrome in full-screen mode (F11, or cmd-shift-f on the Mac) and let it go.`,
-            '',
-            'If you want to change how often TabCarousel flips through your tabs, right click on the toolbar icon and choose "Options".'
-        ].join('\n');
-
         this.lastReloads_ms = {};
         this.lastTimeout = undefined;
     }
@@ -48,23 +35,23 @@ class Carousel {
     }
 
     select(windowId, count) {
-        chrome.tabs.getAllInWindow(windowId, (tabs) => {
+
+        chrome.tabs.query({ windowId: windowId }, (tabs) => {
             const tab = tabs[count % tabs.length];
             const nextTab = tabs[(count + 1) % tabs.length];
-            chrome.tabs.update(tab.id, { selected: true });
+            chrome.tabs.update(tab.id, { active: true });
             this.reload(nextTab.id);
         });
     }
 
-    start() {
+    async start() {
         let count = 0;
         let windowId;
-        let ms = this.flipWait_ms();
+        let ms = await this.flipWait_ms();
 
         chrome.windows.getCurrent((w) => { windowId = w.id; });
-
-        chrome.browserAction.setIcon({ path: 'images/icon_32_exp_1.75_stop_emblem.png' });
-        chrome.browserAction.setTitle({ title: 'Stop Carousel' });
+        chrome.action.setIcon({ path: 'images/icon_32_exp_1.75_stop_emblem.png' });
+        chrome.action.setTitle({ title: 'Stop Carousel' });
 
         const continuation = () => {
             this.select(windowId, count);
@@ -82,55 +69,43 @@ class Carousel {
     stop() {
         clearTimeout(this.lastTimeout);
         this.lastTimeout = undefined;
-        chrome.browserAction.setIcon({ path: 'images/icon_32.png' });
-        chrome.browserAction.setTitle({ title: 'Start Carousel' });
+        chrome.action.setIcon({ path: 'images/icon_32.png' });
+        chrome.action.setTitle({ title: 'Start Carousel' });
     }
 
-    firstRun(ms) {
-        if (ms) {
-            LS.setItem(constants.firstRun, ms);
-            return;
-        }
-        return !LS.getItem(constants.firstRun);
+    async flipWait_ms() {
+        return await LS.getItem(constants.flipWait_ms) || defaults.flipWait_ms;
     }
 
-    flipWait_ms() {
-        return LS.getItem(constants.flipWait_ms) || defaults.flipWait_ms;
+    async reloadWait_ms() {
+        return await LS.getItem(constants.reloadWait_ms) || defaults.reloadWait_ms;
     }
 
-    reloadWait_ms() {
-        return LS.getItem(constants.reloadWait_ms) || defaults.reloadWait_ms;
-    }
-
-    automaticStart() {
-        const automaticStart = LS.getItem(constants.automaticStart);
+    async automaticStart() {
+        const automaticStart = await LS.getItem(constants.automaticStart);
         if (automaticStart !== undefined) {
             return JSON.parse(automaticStart);
         }
     }
 
-    tutorial() {
-        alert(this.tutorialText);
-        this.firstRun(Date.now());
-    }
-
-    click() {
-        if (this.firstRun()) { this.tutorial(); }
-
+    async click() {
         if (!this.running()) {
-            this.start();
+            await this.start();
         } else {
             this.stop();
         }
     }
 
-    load() {
-        chrome.action.onClicked.addListener(() => this.click());
+    async load() {
+        chrome.action.onClicked.addListener(async () => await this.click());
         chrome.action.setTitle({ title: 'Start Carousel' });
 
-        if (this.automaticStart()) { this.start(); }
+        if (await this.automaticStart()) {
+            await this.start();
+        }
     }
 }
 
 const carousel = new Carousel();
-carousel.load();
+await carousel.load();
+

@@ -3,7 +3,6 @@ import { defaults } from './shared.js';
 import { constants } from './shared.js';
 
 function saveOptions() {
-
     const options = {
         flipWait_ms: document.getElementById(constants.flipWait_ms).value,
         automaticStart: document.getElementById(constants.automaticStart).checked
@@ -11,19 +10,6 @@ function saveOptions() {
     LS.setItem(constants.flipWait_ms, options.flipWait_ms);
     LS.setItem(constants.automaticStart, options.automaticStart);
     document.getElementById('status').innerHTML = 'Saved.';
-
-    // Send message for background.js to update its options
-
-    // chrome.runtime.sendMessage({
-    //     action: "setOptions",
-    //     options: {
-    //         flipWait_ms: document.getElementById("flipWait_ms").value,
-    //         automaticStart: document.getElementById("automaticStart").checked
-    //     }
-    // }, function (response) {
-    //     document.getElementById("status").innerHTML = "Saved.";
-    // });
-
     return false;
 }
 
