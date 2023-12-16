@@ -18,6 +18,20 @@ chrome.runtime.onInstalled.addListener(({reason}) => {
     }
 });
 
+
+/**
+ * Carousel class for managing and controlling tab cycling in a Chrome extension.
+ * 
+ * @class
+ * 
+ * @property {Object} lastReloads_ms - An object to store the last reload time of each tab.
+ * @property {number} lastTimeout - The ID of the last timeout set with setTimeout().
+ * 
+ * @method constructor() - Initializes a new instance of the Carousel class.
+ * @method reload(tabId) - Reloads a tab if it hasn't been reloaded recently.
+ * @method select(windowId, count) - Selects a tab in a window and reloads the next tab.
+ * @method start() - Starts the carousel, cycling through tabs in the current window.
+ */
 class Carousel {
     constructor() {
         this.lastReloads_ms = {};
