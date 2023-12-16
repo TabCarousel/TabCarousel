@@ -6,19 +6,18 @@
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
  */
 
-import {LS} from "./shared.js";
-import {defaults} from "./shared.js";
+import {LS} from './shared.js';
+import {defaults} from './shared.js';
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        if (request.action === "setOptions") {
+        if (request.action === 'setOptions') {
             let options = request.options;
             
             return true;  // Will respond asynchronously.
         }
     }
 );
-
 
 class Carousel {
     constructor() {
@@ -58,6 +57,7 @@ class Carousel {
     start() {
         let count = 0;
         let windowId;
+        let ms = 0;
 
         if (!ms) { ms = this.flipWait_ms(); }
         chrome.windows.getCurrent((w) => { windowId = w.id; });
@@ -90,7 +90,7 @@ class Carousel {
     }
 
     flipWait_ms() {
-            return LS.getItem('flipWait_ms') || defaults.flipWait_ms;
+        return LS.getItem('flipWait_ms') || defaults.flipWait_ms;
     }
 
     reloadWait_ms() {   
@@ -98,10 +98,10 @@ class Carousel {
     }
 
     automaticStart() {
-            const automaticStart = LS.getItem('automaticStart');
-            if (automaticStart !== undefined) {
-                return JSON.parse(automaticStart);
-            }
+        const automaticStart = LS.getItem('automaticStart');
+        if (automaticStart !== undefined) {
+            return JSON.parse(automaticStart);
+        }
     }
 
     tutorial() {

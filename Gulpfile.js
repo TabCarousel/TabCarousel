@@ -8,29 +8,29 @@ import webpackconfig from './webpack.config.cjs';
 const config = argv.config == undefined ? 'DEV' : argv.config;
 
 function clean(cb) {
-   deleteSync(["./dist/"]);
-   cb();
+    deleteSync(['./dist/']);
+    cb();
 }
 
 function copyAllFiles() {
     return gulp
         .src([
-            "src/**/*.*",
-            "!src/**/*.js",
-            "!src/manifest*.json"
+            'src/**/*.*',
+            '!src/**/*.js',
+            '!src/manifest*.json'
         ])
-        .pipe(gulp.dest("./dist/"));
+        .pipe(gulp.dest('./dist/'));
 }
 
 function transformManifest(cb) {
-    return transformJson(cb, "manifest");
+    return transformJson(cb, 'manifest');
 }
 
 function transformJson(cb, fileName) {
-    if (config == "DEV") {
+    if (config == 'DEV') {
         return gulp
             .src(`src/${fileName}.json`)
-            .pipe(gulp.dest("./dist/"));
+            .pipe(gulp.dest('./dist/'));
     }
 
     return gulp
@@ -47,22 +47,19 @@ function transformJson(cb, fileName) {
 
 function scripts() {
     return gulp
-      .src(".")
-      .pipe(webpack(webpackconfig))
-      .pipe(gulp.dest("dist/javascripts"))
-  }
+        .src('.')
+        .pipe(webpack(webpackconfig))
+        .pipe(gulp.dest('dist/javascripts'));
+}
 
-function watch(cb) {
-
+function watch() {
     return gulp.watch(
         [
-            "webpack.config.cjs",
-            "src/**/*.*",
+            'webpack.config.cjs',
+            'src/**/*.*',
             '!src/scripts/config.js'
         ],
         gulp.series(clean, scripts, copyAllFiles, transformManifest));
-
-    cb();
 }
 
 gulp.task('default', gulp.series(clean, scripts, copyAllFiles, transformManifest));
