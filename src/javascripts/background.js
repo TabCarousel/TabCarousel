@@ -3,6 +3,7 @@
  * Chrome plugin to cycle through tabs.
  * 
  * @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
+ * @author Madhur Ahuja, @madhur
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
  */
 
