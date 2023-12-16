@@ -6,18 +6,20 @@
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
  */
 
-import {LS} from './shared.js';
-import {defaults} from './shared.js';
+import { LS } from './shared.js';
+import { defaults } from './shared.js';
+import { constants } from './shared.js';
 
-chrome.runtime.onMessage.addListener(
-    function (request, sender, sendResponse) {
-        if (request.action === 'setOptions') {
-            let options = request.options;
-            
-            return true;  // Will respond asynchronously.
-        }
-    }
-);
+
+// chrome.runtime.onMessage.addListener(
+//     function (request, sender, sendResponse) {
+//         if (request.action === 'setOptions') {
+//             let options = request.options;
+
+//             return true;  // Will respond asynchronously.
+//         }
+//     }
+// );
 
 class Carousel {
     constructor() {
@@ -57,9 +59,8 @@ class Carousel {
     start() {
         let count = 0;
         let windowId;
-        let ms = 0;
+        let ms = this.flipWait_ms();
 
-        if (!ms) { ms = this.flipWait_ms(); }
         chrome.windows.getCurrent((w) => { windowId = w.id; });
 
         chrome.browserAction.setIcon({ path: 'images/icon_32_exp_1.75_stop_emblem.png' });
@@ -85,20 +86,24 @@ class Carousel {
         chrome.browserAction.setTitle({ title: 'Start Carousel' });
     }
 
-    firstRun() {
-        return !LS.getItem('firstRun');
+    firstRun(ms) {
+        if (ms) {
+            LS.setItem(constants.firstRun, ms);
+            return;
+        }
+        return !LS.getItem(constants.firstRun);
     }
 
     flipWait_ms() {
-        return LS.getItem('flipWait_ms') || defaults.flipWait_ms;
+        return LS.getItem(constants.flipWait_ms) || defaults.flipWait_ms;
     }
 
-    reloadWait_ms() {   
-        return LS.getItem('reloadWait_ms') || defaults.reloadWait_ms;
+    reloadWait_ms() {
+        return LS.getItem(constants.reloadWait_ms) || defaults.reloadWait_ms;
     }
 
     automaticStart() {
-        const automaticStart = LS.getItem('automaticStart');
+        const automaticStart = LS.getItem(constants.automaticStart);
         if (automaticStart !== undefined) {
             return JSON.parse(automaticStart);
         }
@@ -128,4 +133,4 @@ class Carousel {
 }
 
 const carousel = new Carousel();
-
+carousel.load();

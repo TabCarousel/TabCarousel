@@ -7,7 +7,14 @@ export const LS = {
 };
 
 export const defaults = {
-            flipWait_ms: 15 * 1000,
-            reloadWait_ms: 5 * 60 * 1000,
-            automaticStart: true
+    flipWait_ms: 15 * 1000,
+    reloadWait_ms: 5 * 60 * 1000,
+    automaticStart: false
+};
+
+export const constants = {
+    reloadWait_ms: 'reloadWait_ms',
+    flipWait_ms: 'flipWait_ms',
+    automaticStart: 'automaticStart',
+    firstRun: 'firstRun'
 };

@@ -1,11 +1,9 @@
 import gulp from 'gulp';
 import {deleteSync} from 'del';
-import merge from 'gulp-merge-json';
 import argv from 'yargs/yargs';
 import webpack  from 'webpack-stream';
-import webpackconfig from './webpack.config.cjs';
-
-const config = argv.config == undefined ? 'DEV' : argv.config;
+import webpackconfigdev from './webpack.dev.cjs';
+import webpackconfigprod from './webpack.prod.cjs';
 
 function clean(cb) {
     deleteSync(['./dist/']);
@@ -17,50 +15,34 @@ function copyAllFiles() {
         .src([
             'src/**/*.*',
             '!src/**/*.js',
-            '!src/manifest*.json'
         ])
         .pipe(gulp.dest('./dist/'));
 }
 
-function transformManifest(cb) {
-    return transformJson(cb, 'manifest');
-}
-
-function transformJson(cb, fileName) {
-    if (config == 'DEV') {
-        return gulp
-            .src(`src/${fileName}.json`)
-            .pipe(gulp.dest('./dist/'));
-    }
-
-    return gulp
-        .src([
-            `src/${fileName}.json`,
-            `src/${fileName}.${config}.json`
-        ])
-        .pipe(merge({
-            fileName: `${fileName}.json`
-        }
-        ))
-        .pipe(gulp.dest('./dist'));
-}
-
 function scripts() {
+    const isProduction = (argv.production === undefined) ? false : true;
+    let webpackconfig;
+    if (isProduction) {
+        webpackconfig = webpackconfigprod;
+    }
+    else {
+        webpackconfig = webpackconfigdev;
+    }
     return gulp
         .src('.')
         .pipe(webpack(webpackconfig))
-        .pipe(gulp.dest('dist/javascripts'));
+        .pipe(gulp.dest('dist'));
 }
 
 function watch() {
     return gulp.watch(
         [
-            'webpack.config.cjs',
+            '*.cjs',
             'src/**/*.*',
             '!src/scripts/config.js'
         ],
-        gulp.series(clean, scripts, copyAllFiles, transformManifest));
+        gulp.series(clean, scripts, copyAllFiles));
 }
 
-gulp.task('default', gulp.series(clean, scripts, copyAllFiles, transformManifest));
+gulp.task('default', gulp.series(clean, scripts, copyAllFiles));
 gulp.task('watch', watch);
