@@ -11,3 +11,8 @@ ext/
 node_modules/
 dist/
 *.zip
+.roboconf.sh
+/build
+/docs
+/ext/javascripts
+/node_modules
