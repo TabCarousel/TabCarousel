@@ -1,6 +1,9 @@
 {
   "type": "module",
   "main": "webpack.config.js",
+  "scripts": {
+    "lint": "eslint  ./src"
+  },
   "dependencies": {
     "js-yaml": "^4.1.0"
   },
