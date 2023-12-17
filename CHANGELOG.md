@@ -1,6 +1,23 @@
 Change Log
 ==========
 
+1.0.0
+-----
+* Upgrade to manifest version 3
+
+0.5.4
+-----
+
+* Reduce requested permissions for User Data Privacy section of Chrome Web Store Program Policy
+
+0.5.3
+-----
+
+* Fix bug #7: "can't turn off 'start automatically'"
+* Implement #16:
+    * Switch to manifest version 2
+    * Only use JS in separate files for CSP
+
 0.5.2
 -----
 

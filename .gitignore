@@ -1,3 +1,16 @@
+## MAC OS
+.DS_Store
+Thumbs.db
+
+## VIM
+*.sw[nop]
+
+## PROJECT::SPECIFIC
+pkg/
+ext/
+node_modules/
+dist/
+*.zip
 .roboconf.sh
 /build
 /docs

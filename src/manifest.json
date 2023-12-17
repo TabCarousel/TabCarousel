@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "TabCarousel",
+  "version": "1.0.0",
+  "description": "Cycle through your Chrome tabs automatically.  Great for monitoring information on a TV with a computer attached.",
+  "homepage_url": "https://github.com/TabCarousel/TabCarousel",
+  "icons": {
+    "16": "images/icon_16.png",
+    "32": "images/icon_32.png",
+    "48": "images/icon_48.png",
+    "128": "images/icon_128.png"
+  },
+  "background": {
+    "service_worker": "background.min.js",
+    "type": "module"
+  },
+  "action": {
+    "default_icon": "images/icon_32.png",
+    "16": "images/icon_16.png",
+    "32": "images/icon_32.png",
+    "48": "images/icon_48.png",
+    "128": "images/icon_128.png"
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ]
+}
