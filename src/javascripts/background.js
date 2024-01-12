@@ -39,12 +39,18 @@ class Carousel {
         this.lastTimeout = undefined;
     }
 
-    reload(tabId) {
+    async reload(tabId) {
         const now_ms = Date.now();
         const lastReload_ms = this.lastReloads_ms[tabId];
+        let bypassCache = await this.bypassCache();
 
         if (!lastReload_ms || (now_ms - lastReload_ms >= defaults.reloadWait_ms)) {
-            chrome.tabs.reload(tabId);
+            if (bypassCache) {
+                chrome.tabs.reload(tabId, { bypassCache: true });
+            }
+            else {
+                chrome.tabs.reload(tabId);
+            }
             this.lastReloads_ms[tabId] = now_ms;
         }
     }
@@ -94,6 +100,13 @@ class Carousel {
 
     async reloadWait_ms() {
         return await LS.getItem(constants.reloadWait_ms) || defaults.reloadWait_ms;
+    }
+
+    async bypassCache() {
+        let bypassCache =  await LS.getItem(constants.bypassCache) || defaults.bypassCache;
+        if (bypassCache !== undefined) {
+            return JSON.parse(bypassCache);
+        }
     }
 
     async automaticStart() {
