@@ -23,10 +23,12 @@ import { constants } from './shared.js';
 function saveOptions() {
     const options = {
         flipWait_ms: document.getElementById(constants.flipWait_ms).value,
-        automaticStart: document.getElementById(constants.automaticStart).checked
+        automaticStart: document.getElementById(constants.automaticStart).checked,
+        bypassCache: document.getElementById(constants.bypassCache).checked
     };
     LS.setItem(constants.flipWait_ms, options.flipWait_ms);
     LS.setItem(constants.automaticStart, options.automaticStart);
+    LS.setItem(constants.bypassCache, options.bypassCache);
     document.getElementById('status').innerHTML = 'Saved.';
     return false;
 }
@@ -39,5 +41,10 @@ let automaticStart = await LS.getItem(constants.automaticStart);
 if (automaticStart === undefined) {
     automaticStart = defaults.automaticStart;
 }
+let bypassCache = await LS.getItem(constants.bypassCache);
+if (bypassCache === undefined) {
+    bypassCache = defaults.bypassCache;
+}
 document.getElementById(constants.automaticStart).checked = automaticStart;
+document.getElementById(constants.bypassCache).checked = bypassCache;
 
