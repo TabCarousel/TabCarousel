@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "TabCarousel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cycle through your Chrome tabs automatically.  Great for monitoring information on a TV with a computer attached.",
   "homepage_url": "https://github.com/TabCarousel/TabCarousel",
   "icons": {
