@@ -17,6 +17,7 @@ chrome.runtime.onInstalled.addListener(({reason}) => {
             url: 'onboarding.html'
         });
     }
+    loadCarousel();
 });
 
 
@@ -58,6 +59,9 @@ class Carousel {
     select(windowId, count) {
 
         chrome.tabs.query({ windowId: windowId }, (tabs) => {
+            if (tabs.length === 0) {
+                return;
+            }
             const tab = tabs[count % tabs.length];
             const nextTab = tabs[(count + 1) % tabs.length];
             chrome.tabs.update(tab.id, { active: true });
@@ -70,7 +74,9 @@ class Carousel {
         let windowId;
         let ms = await this.flipWait_ms();
 
-        chrome.windows.getCurrent((w) => { windowId = w.id; });
+        chrome.windows.getCurrent((w) => { 
+            windowId = w.id; 
+        });
         chrome.action.setIcon({ path: 'images/icon_32_exp_1.75_stop_emblem.png' });
         chrome.action.setTitle({ title: 'Stop Carousel' });
 
@@ -134,6 +140,15 @@ class Carousel {
     }
 }
 
-const carousel = new Carousel();
-await carousel.load();
+
+
+chrome.runtime.onStartup.addListener(() => {
+    // Code to run on extension startup
+    loadCarousel();
+});
+
+async function loadCarousel() {
+    const carousel = new Carousel();
+    await carousel.load();
+}
 

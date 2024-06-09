@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+1.0.1
+-----
+* Fixed auto startup
+
 1.0.0
 -----
 * Upgrade to manifest version 3
