@@ -11,7 +11,7 @@ import { LS } from './shared.js';
 import { defaults } from './shared.js';
 import { constants } from './shared.js';
 
-// Keep the service worker active
+// Temporary fix to keep the service worker active (https://github.com/TabCarousel/TabCarousel/issues/66).
 setInterval(()=>{self.serviceWorker.postMessage('test');},20000);
 
 chrome.runtime.onInstalled.addListener(({reason}) => {
