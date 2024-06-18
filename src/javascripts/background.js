@@ -1,7 +1,7 @@
 
 /**
  * Chrome plugin to cycle through tabs.
- * 
+ *
  * @author Benjamin Oakes <hello@benjaminoakes.com>, @benjaminoakes
  * @author Madhur Ahuja, @madhur
  * @seealso http://code.google.com/chrome/extensions/background_pages.html
@@ -10,6 +10,9 @@
 import { LS } from './shared.js';
 import { defaults } from './shared.js';
 import { constants } from './shared.js';
+
+// Temporary fix to keep the service worker active (https://github.com/TabCarousel/TabCarousel/issues/66).
+setInterval(()=>{self.serviceWorker.postMessage('test');},20000);
 
 chrome.runtime.onInstalled.addListener(({reason}) => {
     if (reason === 'install') {
@@ -23,12 +26,12 @@ chrome.runtime.onInstalled.addListener(({reason}) => {
 
 /**
  * Carousel class for managing and controlling tab cycling in a Chrome extension.
- * 
+ *
  * @class
- * 
+ *
  * @property {Object} lastReloads_ms - An object to store the last reload time of each tab.
  * @property {number} lastTimeout - The ID of the last timeout set with setTimeout().
- * 
+ *
  * @method constructor() - Initializes a new instance of the Carousel class.
  * @method reload(tabId) - Reloads a tab if it hasn't been reloaded recently.
  * @method select(windowId, count) - Selects a tab in a window and reloads the next tab.
@@ -74,8 +77,8 @@ class Carousel {
         let windowId;
         let ms = await this.flipWait_ms();
 
-        chrome.windows.getCurrent((w) => { 
-            windowId = w.id; 
+        chrome.windows.getCurrent((w) => {
+            windowId = w.id;
         });
         chrome.action.setIcon({ path: 'images/icon_32_exp_1.75_stop_emblem.png' });
         chrome.action.setTitle({ title: 'Stop Carousel' });
@@ -151,4 +154,3 @@ async function loadCarousel() {
     const carousel = new Carousel();
     await carousel.load();
 }
-
