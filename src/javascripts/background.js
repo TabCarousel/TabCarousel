@@ -12,7 +12,7 @@ import { defaults } from './shared.js';
 import { constants } from './shared.js';
 
 // Keep the service worker active
-setInterval(()=>{self.serviceWorker.postMessage('test')},20000);
+setInterval(()=>{self.serviceWorker.postMessage('test');},20000);
 
 chrome.runtime.onInstalled.addListener(({reason}) => {
     if (reason === 'install') {
