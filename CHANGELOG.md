@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+1.0.2
+-----
+- Jim Adamson: Fix no carouselling when flipWait set to > 30 seconds (#70)
+
 1.0.1
 -----
 * Fixed auto startup
