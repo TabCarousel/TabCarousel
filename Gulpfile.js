@@ -18,7 +18,7 @@ function copyAllFiles() {
         .src([
             'src/**/*.*',
             '!src/**/*.js',
-        ])
+        ],{encoding: false})
         .pipe(gulp.dest('./dist/'));
 }
 
