@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+1.0.3
+-----
+- Experiment: add sponsorship links
+
 1.0.2
 -----
 - Jim Adamson: Fix no carouselling when flipWait set to > 30 seconds (#70)
