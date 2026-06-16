@@ -9,9 +9,7 @@ A Chrome extension to help you keep tabs on info you want to monitor.  It's grea
 
 Have an idea to make TabCarousel better?  Find a bug?  Having a problem?  Please submit an [issue](https://github.com/benjaminoakes/TabCarousel/issues) or contribute changes by forking on GitHub.
 
-Want to support development of TabCarousel?  Please consider [making a micro-donation via Flattr](https://flattr.com/submit/auto?user_id=benjaminoakes&url=https://github.com/benjaminoakes/TabCarousel&title=TabCarousel&language=en_GB&tags=github&category=software):
-
-[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=benjaminoakes&url=https://github.com/benjaminoakes/TabCarousel&title=TabCarousel&language=en_GB&tags=github&category=software)
+Want to support development of TabCarousel?  Please consider [making a micro-donation via Buy Me a Coffee](https://buymeacoffee.com/benjaminoakes)
 
 Buzz
 ----
