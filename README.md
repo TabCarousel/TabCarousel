@@ -1,6 +1,8 @@
 TabCarousel
 ===========
 
+[![Sponsored by CloudBreak](https://cloudbreak.app/promotional_banner?source=tabcarousel_readme)](https://cloudbreak.app/?utm_medium=referral&utm_source=tabcarousel_readme&rby=tabcarousel_readme)
+
 **Additional maintainer wanted.**  Please reach out in a GitHub Issue if you are interested in helping out!
 
 by [Benjamin Oakes](http://www.benjaminoakes.com/)
@@ -8,8 +10,6 @@ by [Benjamin Oakes](http://www.benjaminoakes.com/)
 A Chrome extension to help you keep tabs on info you want to monitor.  It's great for cycling through tabs on an external display, like a TV.
 
 Have an idea to make TabCarousel better?  Find a bug?  Having a problem?  Please submit an [issue](https://github.com/benjaminoakes/TabCarousel/issues) or contribute changes by forking on GitHub.
-
-Want to support development of TabCarousel?  Please consider [making a micro-donation via Buy Me a Coffee](https://buymeacoffee.com/benjaminoakes)
 
 Buzz
 ----
