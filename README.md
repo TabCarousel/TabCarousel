@@ -1,7 +1,7 @@
 TabCarousel
 ===========
 
-[![Sponsored by CloudBreak](https://cloudbreak.app/promotional_banner?source=tabcarousel_readme)](https://cloudbreak.app/?utm_medium=referral&utm_source=tabcarousel_readme&rby=tabcarousel_readme)
+[![Sponsored by CloudBreak](https://cloudbreak.app/promotional_banner.svg?source=tabcarousel_readme)](https://cloudbreak.app/promotional_banner/visit?source=tabcarousel_readme)
 
 **Additional maintainer wanted.**  Please reach out in a GitHub Issue if you are interested in helping out!
 
