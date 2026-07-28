@@ -5,10 +5,10 @@
     "lint": "eslint  ./src"
   },
   "dependencies": {
-    "js-yaml": "^4.2.0"
+    "js-yaml": "^5.2.2"
   },
   "devDependencies": {
-    "eslint": "^8.56.0",
+    "eslint": "^10.8.0",
     "@babel/cli": "^7.23.4",
     "@babel/core": "^7.23.6",
     "@babel/preset-env": "^7.23.6",
